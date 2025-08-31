@@ -1,4 +1,4 @@
-name: package_app_manager
+name: acta
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
@@ -10,7 +10,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  # Optional: add these ONLY if you plan to re-export or use their reporters by default.
+  # For now, **do not** list them here to keep the core lightweight.
+  firebase_crashlytics: ^5.0.0
+  firebase_core: ^4.0.0
+  sentry_flutter: ^9.6.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
