@@ -16,7 +16,7 @@ dependencies:
   # For now, **do not** list them here to keep the core lightweight.
   firebase_crashlytics: ^5.0.0
   firebase_core: ^4.0.0
-  sentry_flutter: ^9.6.0
+  # sentry_flutter: ^9.6.0
   
 dev_dependencies:
   flutter_test:

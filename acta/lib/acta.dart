@@ -10,7 +10,7 @@ export 'src/storage/composite_storage.dart';
 export 'src/storage/firebase_storage.dart';
 export 'src/storage/mongo_storage.dart';
 export 'src/reporters/console_reporter.dart';
-export 'src/reporters/crash_reporter.dart';
+export 'src/reporters/reporter.dart';
 export 'src/reporters/firebase_reporter.dart';
 export 'src/reporters/local_db_reporter.dart';
 export 'src/reporters/sentry_reporter.dart';

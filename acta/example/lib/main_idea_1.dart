@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   await Hive.initFlutter();
   final logBox = await Hive.openBox('bugkit_logs');
 
@@ -16,7 +14,7 @@ void main() async {
         dbName: 'error_logs',
         collection: 'logs',
       ),
-      FirebaseStorage(),
+      // FirebaseStorage(),
     ]),
     options: const HandlerOptions(
       catchAsyncErrors: true,
@@ -31,7 +29,10 @@ void main() async {
       // if (kReleaseMode && report.level == BugLevel.debug) return null;
       return report;
     },
-    appRunner: () => runApp(const MyApp()),
+    appRunner: () {
+      WidgetsFlutterBinding.ensureInitialized();
+      runApp(const MyApp());
+    },
   );
 }
 

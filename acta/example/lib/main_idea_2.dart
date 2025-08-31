@@ -12,8 +12,8 @@ void main() async {
     reporters: [
       ConsoleReporter(),
       LocalDbReporter(logBox),
-      FirebaseReporter(),
-      SentryCrashReporter(),
+      // FirebaseReporter(),
+      // SentryCrashReporter(),
     ],
     options: const HandlerOptions(
       catchAsyncErrors: true,
