@@ -1,16 +1,26 @@
 import 'package:acta/acta.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/error_screen.dart';
 import 'package:flutter_base/home_screen.dart';
 import 'package:flutter_base/routes.dart';
+// import 'package:flutter_base/firebase_options.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Handler.initialize(
     // Handler2.initialize(
-    strategies: [ConsoleStrategy()],
+    strategies: [
+      ConsoleStrategy(),
+      GitHubIssueStrategy(
+        owner: 'meuUser',
+        repo: 'meuRepo',
+        token: 'meuToken',
+        minSeverity: Severity.critical,
+      ),
+    ],
     storage: CompositeStorage([
       MongoStorage(
         connectionString:
@@ -18,6 +28,7 @@ void main() async {
         dbName: 'error_logs',
         collection: 'logs',
       ),
+      FirebaseStorage(),
     ]),
     // reporters: [ConsoleReporter(),],
     options: const HandlerOptions(

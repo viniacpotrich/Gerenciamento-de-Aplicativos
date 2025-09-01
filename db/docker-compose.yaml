@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  mongo:
+   mongo:
     image: mongo:6
     container_name: mongo
     restart: always
@@ -13,7 +13,7 @@ services:
     volumes:
       - mongo_data:/data/db
 
-  mongo-express:
+   mongo-express:
     image: mongo-express:1
     container_name: mongo-express
     restart: always
@@ -23,6 +23,22 @@ services:
       - ME_CONFIG_BASICAUTH_USERNAME=root
       - ME_CONFIG_BASICAUTH_PASSWORD=example
       - ME_CONFIG_MONGODB_URL=mongodb://root:example@mongo:27017/
+
+   n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin
+      - DB_TYPE=mongo
+      - DB_MONGO_CONNECTION_URL=mongodb://root:example@mongo:27017/n8n
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+    depends_on:
+      - mongo
 
 volumes:
   mongo_data:
