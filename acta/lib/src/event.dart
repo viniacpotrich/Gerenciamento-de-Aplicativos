@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum Severity { info, warning, critical }
 //{ debug, info, warning, error, fatal }
 
