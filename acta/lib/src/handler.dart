@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'event.dart';
 import 'strategies/base_strategy.dart';
 import 'storage/storage.dart';
 
 typedef BeforeSend = FutureOr<Event?> Function(Event event);
+typedef OnCaptured = void Function(Event? event);
 
 class HandlerOptions {
   final bool catchAsyncErrors;
@@ -22,13 +24,14 @@ class HandlerOptions {
   });
 }
 
-class ErrorHandler {
+class Handler {
   static final List<Strategy> _strategies = [];
   static Storage? _storage;
   static late HandlerOptions _options;
   static Map<String, dynamic> _globalContext = {};
   static final List<Map<String, dynamic>> _breadcrumbs = [];
   static BeforeSend? _beforeSend;
+  static OnCaptured? _onCaptured;
 
   /// Inicializa handlers globais e executa seu app.
   static void initialize({
@@ -36,6 +39,7 @@ class ErrorHandler {
     Storage? storage,
     HandlerOptions options = const HandlerOptions(),
     BeforeSend? beforeSend,
+    OnCaptured? onCaptured,
     Map<String, dynamic>? initialContext,
     required void Function() appRunner,
   }) {
@@ -45,6 +49,7 @@ class ErrorHandler {
     _storage = storage;
     _options = options;
     _beforeSend = beforeSend;
+    _onCaptured = onCaptured;
     _globalContext = Map<String, dynamic>.from(initialContext ?? {});
 
     if (_options.logFlutterErrors) {
@@ -73,6 +78,8 @@ class ErrorHandler {
     }
 
     if (_options.catchAsyncErrors) {
+      WidgetsFlutterBinding.ensureInitialized();
+
       runZonedGuarded(appRunner, (Object error, StackTrace stack) {
         capture(
           message: "Async error caught",
@@ -140,5 +147,8 @@ class ErrorHandler {
 
     // Storage persistente
     await _storage?.save(maybe);
+
+    // Callback de notificação externa (UI, snackbars etc)
+    _onCaptured?.call(maybe);
   }
 }

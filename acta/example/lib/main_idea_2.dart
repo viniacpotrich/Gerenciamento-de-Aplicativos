@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
-  final logBox = await Hive.openBox('bugkit_logs');
+  final logBox = await Hive.openBox('acta_logs');
 
   Handler2.initialize(
     reporters: [

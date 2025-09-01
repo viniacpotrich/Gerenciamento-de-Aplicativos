@@ -1,67 +1,88 @@
+import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/error_screen.dart';
+import 'package:flutter_base/home_screen.dart';
+import 'package:flutter_base/routes.dart';
 
-void main() {
-  runApp(const MyApp());
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Handler.initialize(
+    // Handler2.initialize(
+    strategies: [ConsoleStrategy()],
+    storage: CompositeStorage([
+      MongoStorage(
+        connectionString:
+            'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
+        dbName: 'error_logs',
+        collection: 'logs',
+      ),
+    ]),
+    // reporters: [ConsoleReporter(),],
+    options: const HandlerOptions(
+      catchAsyncErrors: true,
+      logFlutterErrors: true,
+      logPlatformErrors: true,
+      minSeverity: Severity.info,
+      maxBreadcrumbs: 50,
+    ),
+    initialContext: {'appVersion': '1.0.0', 'build': 1, 'env': 'dev'},
+    beforeSend: (report) {
+      // Example: drop noisy debug logs in release
+      // if (kReleaseMode && report.level == BugLevel.debug) return null;
+      return report;
+    },
+    onCaptured: (event) {
+      var context2 = navigatorKey.currentState?.context;
+      if (context2 != null) {
+        ScaffoldMessenger.of(
+          context2,
+        ).showSnackBar(debugSnackBar(event, context2));
+      }
+    },
+    appRunner: () {
+      runApp(const MyApp());
+    },
+  );
+}
+
+SnackBar debugSnackBar(Event? event, BuildContext context2) {
+  return SnackBar(
+    content: ListTile(
+      title: Text(
+        event?.message ?? '',
+        style: TextStyle(color: Theme.of(context2).colorScheme.onPrimary),
+      ),
+      subtitle: Text(
+        event?.exception.toString() ?? '',
+        style: TextStyle(color: Theme.of(context2).colorScheme.onPrimary),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+      navigatorKey: navigatorKey,
+      title: 'Erro Test App',
+      home: const HomeScreen(),
+      routes: {
+        Routes.errorScreenCast:
+            (_) => const ErrorScreen(
+              title: 'Error Cast',
+              breadcrumbName: 'Pressionou Trigger()',
+              triggerError: methodErrorCast,
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      },
     );
   }
+}
+
+void methodErrorCast() {
+  int inteiro = 0.0 as int; // Força um erro de tipo
 }

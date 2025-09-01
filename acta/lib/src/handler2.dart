@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:acta/acta.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class Handler2 {
   static final List<Reporter> _reporters = [];
   static late HandlerOptions _options;
   static BeforeSend? _beforeSend;
+  static OnCaptured? _onCaptured;
   static Map<String, dynamic> _globalContext = {};
   static final List<Map<String, dynamic>> _breadcrumbs = [];
 
@@ -13,6 +15,7 @@ class Handler2 {
     required List<Reporter> reporters,
     HandlerOptions options = const HandlerOptions(),
     BeforeSend? beforeSend,
+    OnCaptured? onCaptured,
     Map<String, dynamic>? initialContext,
     required void Function() appRunner,
   }) {
@@ -21,6 +24,7 @@ class Handler2 {
       ..addAll(reporters);
     _options = options;
     _beforeSend = beforeSend;
+    _onCaptured = onCaptured;
     _globalContext = {...?initialContext};
 
     if (_options.logFlutterErrors) {
@@ -49,6 +53,8 @@ class Handler2 {
     }
 
     if (_options.catchAsyncErrors) {
+      WidgetsFlutterBinding.ensureInitialized();
+
       runZonedGuarded(appRunner, (Object error, StackTrace stack) {
         capture(
           message: "Async error caught",
@@ -111,6 +117,9 @@ class Handler2 {
     for (final r in _reporters) {
       try {
         await r.report(maybe);
+
+        // Callback de notificação externa (UI, snackbars etc)
+        _onCaptured?.call(maybe);
       } catch (e, s) {
         debugPrint('[ErrorKit] reporter ${r.runtimeType} failed: $e\n$s');
       }

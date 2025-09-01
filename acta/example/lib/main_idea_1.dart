@@ -4,9 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   await Hive.initFlutter();
-  final logBox = await Hive.openBox('bugkit_logs');
+  final logBox = await Hive.openBox('acta_logs');
 
-  ErrorHandler.initialize(
+  Handler.initialize(
     strategies: [ConsoleStrategy()],
     storage: CompositeStorage([
       MongoStorage(
