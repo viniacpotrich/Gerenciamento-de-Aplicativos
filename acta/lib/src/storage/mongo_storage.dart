@@ -8,11 +8,13 @@ class MongoStorage implements Storage {
   final String connectionString;
   final String dbName;
   final String collection;
+  final bool compactMode;
 
   MongoStorage({
     required this.connectionString,
     required this.dbName,
     required this.collection,
+    this.compactMode = false,
   });
 
   Future<Db> _connect() async {
@@ -26,21 +28,46 @@ class MongoStorage implements Storage {
     try {
       final db = await _connect();
       final coll = db.collection(collection);
-
-      await coll.insertOne({
-        'message': event.message,
-        'severity': event.severity.toString(),
-        'timestamp': event.timestamp.toIso8601String(),
-        'exception': event.exception?.toString(),
-        'stackTrace': event.stackTrace?.toString(),
-        'metadata': event.metadata,
-        'breadcrumbs': event.breadcrumbs,
-      });
+      WriteResult result;
+      if (compactMode) {
+        result = await coll.updateOne(
+          where.eq('fingerPrint', event.fingerPrint),
+          ModifierBuilder()
+              // These modifiers apply on both insert and update
+              .set('lastSeen', event.timestamp.toIso8601String())
+              // Corrected: $inc handles both new documents and existing ones
+              .inc('occurrences', 1)
+              .push('breadcrumbs', {r'$each': event.breadcrumbs})
+              // These modifiers apply ONLY on insert
+              .setOnInsert('fingerPrint', event.fingerPrint)
+              .setOnInsert('message', event.message)
+              .setOnInsert('severity', event.severity.toString())
+              .setOnInsert('timestamp', event.timestamp.toIso8601String())
+              .setOnInsert('exception', event.exception?.toString())
+              .setOnInsert('stackTrace', event.stackTrace?.toString())
+              .setOnInsert('metadata', event.metadata),
+          upsert: true,
+        );
+      } else {
+        // Raw insert: histórico completo
+        result = await coll.insertOne({
+          'message': event.message,
+          'severity': event.severity.toString(),
+          'timestamp': event.timestamp.toIso8601String(),
+          'exception': event.exception?.toString(),
+          'stackTrace': event.stackTrace?.toString(),
+          'metadata': event.metadata,
+          'breadcrumbs': event.breadcrumbs,
+          'fingerPrint': event.fingerPrint,
+        });
+      }
 
       await db.close();
       debugPrint('Evento salvo no MongoDB: ${event.message}');
+      // return result;
     } catch (e, s) {
       debugPrint('Erro ao salvar no MongoDB: $e\n$s');
+      // return null;
     }
   }
 }

@@ -14,6 +14,8 @@ class Event {
   /// Breadcrumbs (ex: lista de passos/ações antes do erro)
   final List<Map<String, dynamic>> breadcrumbs;
 
+  final String fingerPrint;
+
   Event({
     required this.message,
     this.exception,
@@ -22,6 +24,7 @@ class Event {
     DateTime? timestamp,
     this.metadata,
     List<Map<String, dynamic>>? breadcrumbs,
+    required this.fingerPrint,
   }) : timestamp = timestamp ?? DateTime.now(),
        breadcrumbs = breadcrumbs ?? [];
 }

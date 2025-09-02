@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:acta/acta.dart';
+import 'package:acta/src/utils/utils.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 class Handler2 {
   static final List<Reporter> _reporters = [];
@@ -18,6 +18,7 @@ class Handler2 {
     OnCaptured? onCaptured,
     Map<String, dynamic>? initialContext,
     required void Function() appRunner,
+    ZoneSpecification? zoneSpecification,
   }) {
     _reporters
       ..clear()
@@ -53,7 +54,7 @@ class Handler2 {
     }
 
     if (_options.catchAsyncErrors) {
-      WidgetsFlutterBinding.ensureInitialized();
+      // WidgetsFlutterBinding.ensureInitialized();
 
       runZonedGuarded(appRunner, (Object error, StackTrace stack) {
         capture(
@@ -62,7 +63,7 @@ class Handler2 {
           stackTrace: stack,
           severity: Severity.critical,
         );
-      });
+      }, zoneSpecification: zoneSpecification);
     } else {
       appRunner();
     }
@@ -101,7 +102,7 @@ class Handler2 {
     Map<String, dynamic>? meta,
   }) async {
     if (severity.index < _options.minSeverity.index) return;
-
+    final fingerprint = generateFingerprint(exception, stackTrace);
     final event = Event(
       message: message,
       exception: exception,
@@ -109,6 +110,7 @@ class Handler2 {
       severity: severity,
       metadata: {..._globalContext, ...?meta},
       breadcrumbs: List<Map<String, dynamic>>.from(_breadcrumbs),
+      fingerPrint: fingerprint,
     );
 
     final maybe = await Future.value(_beforeSend?.call(event) ?? event);

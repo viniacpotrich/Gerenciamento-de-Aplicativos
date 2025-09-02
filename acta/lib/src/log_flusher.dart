@@ -1,4 +1,5 @@
 import 'package:acta/acta.dart';
+import 'package:acta/src/utils/utils.dart';
 import 'package:hive/hive.dart';
 
 /// Replays locally stored logs to an uploader reporter, then clears the box.
@@ -13,6 +14,7 @@ class LogFlusher {
     for (final m in items) {
       final report = Event(
         message: m['content'] ?? 'unknown',
+        exception: (m['exception'] != null) ? m['exception'] : null,
         stackTrace:
             (m['stack'] != null)
                 ? StackTrace.fromString(m['stack'] as String)
@@ -23,6 +25,12 @@ class LogFlusher {
             DateTime.now(),
         metadata: Map<String, dynamic>.from(m['meta'] as Map? ?? const {}),
         breadcrumbs: (m['breadcrumbs'] as List?)?.cast<Map<String, dynamic>>(),
+        fingerPrint: generateFingerprint(
+          (m['exception'] != null) ? m['exception'] : null,
+          (m['stack'] != null)
+              ? StackTrace.fromString(m['stack'] as String)
+              : null,
+        ),
       );
       await uploader.report(report);
     }

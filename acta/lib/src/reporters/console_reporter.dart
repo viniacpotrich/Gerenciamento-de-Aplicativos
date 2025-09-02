@@ -20,6 +20,7 @@ class ConsoleReporter implements Reporter {
         b.writeln('  - $bc');
       }
     }
+    b.writeln('fingerPrint : ${r.fingerPrint}');
     pretty ? debugPrint(b.toString()) : debugPrint(b.toString());
   }
 }

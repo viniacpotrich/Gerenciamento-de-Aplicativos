@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:acta/src/utils/utils.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'event.dart';
 import 'strategies/base_strategy.dart';
 import 'storage/storage.dart';
@@ -42,6 +42,7 @@ class Handler {
     OnCaptured? onCaptured,
     Map<String, dynamic>? initialContext,
     required void Function() appRunner,
+    ZoneSpecification? zoneSpecification,
   }) {
     _strategies
       ..clear()
@@ -78,7 +79,7 @@ class Handler {
     }
 
     if (_options.catchAsyncErrors) {
-      WidgetsFlutterBinding.ensureInitialized();
+      // WidgetsFlutterBinding.ensureInitialized();
 
       runZonedGuarded(appRunner, (Object error, StackTrace stack) {
         capture(
@@ -87,7 +88,7 @@ class Handler {
           stackTrace: stack,
           severity: Severity.critical,
         );
-      });
+      }, zoneSpecification: zoneSpecification);
     } else {
       appRunner();
     }
@@ -127,6 +128,7 @@ class Handler {
     Map<String, dynamic>? meta,
   }) async {
     if (severity.index < _options.minSeverity.index) return;
+    final fingerprint = generateFingerprint(exception, stackTrace);
 
     final event = Event(
       message: message,
@@ -135,6 +137,7 @@ class Handler {
       severity: severity,
       metadata: {..._globalContext, ...?meta},
       breadcrumbs: List<Map<String, dynamic>>.from(_breadcrumbs),
+      fingerPrint: fingerprint,
     );
 
     final maybe = await Future.value(_beforeSend?.call(event) ?? event);

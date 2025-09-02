@@ -23,6 +23,7 @@ class FirebaseStorage implements Storage {
         'stackTrace': event.stackTrace?.toString(),
         'metadata': event.metadata,
         'breadcrumbs': event.breadcrumbs,
+        'fingerPrint': event.fingerPrint,
       });
       debugPrint('Evento salvo no Firebase: ${event.message}');
     } catch (e, s) {

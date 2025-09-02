@@ -15,6 +15,7 @@ class LocalDbReporter implements Reporter {
       'stack': r.stackTrace?.toString(),
       'meta': r.metadata,
       'breadcrumbs': r.breadcrumbs,
+      'fingerPrint': r.fingerPrint,
     });
   }
 }
