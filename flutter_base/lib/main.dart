@@ -1,25 +1,30 @@
+import 'dart:async';
+import 'dart:developer' as developer;
+
 import 'package:acta/acta.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/error_screen.dart';
-import 'package:flutter_base/home_screen.dart';
-import 'package:flutter_base/routes.dart';
+import 'package:flutter_base/screens/code_errors/code_errors.dart';
+import 'package:flutter_base/navigation/custom_navigator_observer.dart';
+import 'package:flutter_base/screens/home/home_screen.dart';
+import 'package:flutter_base/navigation/routes.dart';
+import 'package:flutter_base/screens/key_error/key_error.dart';
+import 'package:flutter_base/screens/memory_leak/memory_leak.dart';
 // import 'package:flutter_base/firebase_options.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Handler.initialize(
     // Handler2.initialize(
     strategies: [
       ConsoleStrategy(),
-      GitHubIssueStrategy(
-        owner: 'meuUser',
-        repo: 'meuRepo',
-        token: 'meuToken',
-        minSeverity: Severity.critical,
-      ),
+      // GitHubIssueStrategy(
+      //   owner: 'meuUser',
+      //   repo: 'meuRepo',
+      //   token: 'meuToken',
+      //   minSeverity: Severity.critical,
+      // ),
     ],
     storage: CompositeStorage([
       MongoStorage(
@@ -27,8 +32,9 @@ void main() async {
             'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
         dbName: 'error_logs',
         collection: 'logs',
+        compactMode: true,
       ),
-      FirebaseStorage(),
+      // FirebaseStorage(),
     ]),
     // reporters: [ConsoleReporter(),],
     options: const HandlerOptions(
@@ -55,6 +61,20 @@ void main() async {
     appRunner: () {
       runApp(const MyApp());
     },
+    zoneSpecification: ZoneSpecification(
+      print: (self, parent, zone, line) {
+        developer.log("[PRINT] $line");
+        parent.print(zone, line);
+      },
+      createTimer: (self, parent, zone, duration, callback) {
+        developer.log("[TIMER] Scheduled for $duration");
+        return parent.createTimer(zone, duration, callback);
+      },
+      scheduleMicrotask: (self, parent, zone, task) {
+        developer.log("[MICROTASK] New microtask scheduled");
+        parent.scheduleMicrotask(zone, task);
+      },
+    ),
   );
 }
 
@@ -83,17 +103,11 @@ class MyApp extends StatelessWidget {
       title: 'Erro Test App',
       home: const HomeScreen(),
       routes: {
-        Routes.errorScreenCast:
-            (_) => const ErrorScreen(
-              title: 'Error Cast',
-              breadcrumbName: 'Pressionou Trigger()',
-              triggerError: methodErrorCast,
-            ),
+        Routes.errorScreen: (_) => const CodeErrorsScreen(),
+        Routes.keyScreen: (_) => const KeyErrorScreen(),
+        Routes.memoryLeakScreen: (_) => const MemoryLeakScreen(),
       },
+      navigatorObservers: [CustomNavigatorObserver()],
     );
   }
-}
-
-void methodErrorCast() {
-  int inteiro = 0.0 as int; // Força um erro de tipo
 }
