@@ -16,6 +16,8 @@ class Event {
 
   final String fingerPrint;
 
+  final String? tag;
+
   Event({
     required this.message,
     this.exception,
@@ -25,6 +27,7 @@ class Event {
     this.metadata,
     List<Map<String, dynamic>>? breadcrumbs,
     required this.fingerPrint,
+    this.tag,
   }) : timestamp = timestamp ?? DateTime.now(),
        breadcrumbs = breadcrumbs ?? [];
 }

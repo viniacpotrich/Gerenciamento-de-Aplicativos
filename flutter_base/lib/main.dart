@@ -4,8 +4,9 @@ import 'dart:developer' as developer;
 import 'package:acta/acta.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/screens/code_errors/code_errors.dart';
+import 'package:flutter_base/screens/code_errors/code_errors_screen.dart';
 import 'package:flutter_base/navigation/custom_navigator_observer.dart';
+import 'package:flutter_base/screens/db_erros/db_errors_screen.dart';
 import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
 import 'package:flutter_base/screens/key_error/key_error.dart';
@@ -34,6 +35,10 @@ void main() async {
         collection: 'logs',
         compactMode: true,
       ),
+      ElasticsearchStorage(
+        connectionString: 'http://localhost:9200',
+        indexPattern: 'logs',
+      ),
       // FirebaseStorage(),
     ]),
     // reporters: [ConsoleReporter(),],
@@ -45,12 +50,12 @@ void main() async {
       maxBreadcrumbs: 50,
     ),
     initialContext: {'appVersion': '1.0.0', 'build': 1, 'env': 'dev'},
-    beforeSend: (report) {
+    beforeSend: (Event event) {
       // Example: drop noisy debug logs in release
       // if (kReleaseMode && report.level == BugLevel.debug) return null;
-      return report;
+      return event;
     },
-    onCaptured: (event) {
+    onCaptured: (Event? event) {
       var context2 = navigatorKey.currentState?.context;
       if (context2 != null) {
         ScaffoldMessenger.of(
@@ -77,6 +82,8 @@ void main() async {
     ),
   );
 }
+
+//TODO url invalida
 
 SnackBar debugSnackBar(Event? event, BuildContext context2) {
   return SnackBar(
@@ -106,6 +113,7 @@ class MyApp extends StatelessWidget {
         Routes.errorScreen: (_) => const CodeErrorsScreen(),
         Routes.keyScreen: (_) => const KeyErrorScreen(),
         Routes.memoryLeakScreen: (_) => const MemoryLeakScreen(),
+        Routes.dbErrors: (_) => const DbErrorScreen(),
       },
       navigatorObservers: [CustomNavigatorObserver()],
     );

@@ -49,14 +49,15 @@ class _MemoryLeakScreenState extends State<MemoryLeakScreen> {
     numberListener++;
   }
 
-  //FIX
-  // @override
-  // void dispose() {
-  //   numberListener--;
-  //   _subscription.cancel();
-  //   _timer?.cancel();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    numberListener--;
+    subscription.cancel();
+
+    //FIX
+    // timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

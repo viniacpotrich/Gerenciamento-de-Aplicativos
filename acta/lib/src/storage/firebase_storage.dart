@@ -24,6 +24,7 @@ class FirebaseStorage implements Storage {
         'metadata': event.metadata,
         'breadcrumbs': event.breadcrumbs,
         'fingerPrint': event.fingerPrint,
+        'tag': event.tag,
       });
       debugPrint('Evento salvo no Firebase: ${event.message}');
     } catch (e, s) {

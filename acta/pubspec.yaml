@@ -19,6 +19,7 @@ dependencies:
   firebase_core: ^4.0.0
   # sentry_flutter: ^9.6.0
   mongo_dart: ^0.10.5
+  http: ^1.5.0
   
 dev_dependencies:
   flutter_test:

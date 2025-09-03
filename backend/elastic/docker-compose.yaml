@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false   # disable security (dev only)
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g   # limit ES to 2GB heap
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200" # API
+    networks:
+      - elk
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.2
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - NODE_OPTIONS=--max-old-space-size=512   # limit Kibana to 512MB
+    ports:
+      - "5601:5601" # dashboard
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+
+volumes:
+  es_data:
+
+networks:
+  elk:

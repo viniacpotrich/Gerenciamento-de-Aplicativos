@@ -100,6 +100,7 @@ class Handler2 {
     StackTrace? stackTrace,
     Severity severity = Severity.info,
     Map<String, dynamic>? meta,
+    String? tag,
   }) async {
     if (severity.index < _options.minSeverity.index) return;
     final fingerprint = generateFingerprint(exception, stackTrace);
@@ -111,6 +112,7 @@ class Handler2 {
       metadata: {..._globalContext, ...?meta},
       breadcrumbs: List<Map<String, dynamic>>.from(_breadcrumbs),
       fingerPrint: fingerprint,
+      tag: tag,
     );
 
     final maybe = await Future.value(_beforeSend?.call(event) ?? event);

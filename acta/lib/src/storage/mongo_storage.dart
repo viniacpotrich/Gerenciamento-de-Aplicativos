@@ -45,7 +45,8 @@ class MongoStorage implements Storage {
               .setOnInsert('timestamp', event.timestamp.toIso8601String())
               .setOnInsert('exception', event.exception?.toString())
               .setOnInsert('stackTrace', event.stackTrace?.toString())
-              .setOnInsert('metadata', event.metadata),
+              .setOnInsert('metadata', event.metadata)
+              .setOnInsert('tag', event.tag),
           upsert: true,
         );
       } else {
@@ -59,6 +60,7 @@ class MongoStorage implements Storage {
           'metadata': event.metadata,
           'breadcrumbs': event.breadcrumbs,
           'fingerPrint': event.fingerPrint,
+          'tag': event.tag,
         });
       }
 

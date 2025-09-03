@@ -69,6 +69,13 @@ class HomeScreen extends StatelessWidget {
             route: Routes.memoryLeakScreen,
             color: Colors.amber,
           ),
+          _buildMenuButton(
+            context: context,
+            title: 'Light Error',
+            icon: Icons.running_with_errors,
+            route: Routes.dbErrors,
+            color: Colors.deepOrange,
+          ),
         ],
       ),
     );
