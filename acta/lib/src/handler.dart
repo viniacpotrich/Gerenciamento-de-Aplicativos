@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:acta/src/utils/utils.dart';
 import 'package:flutter/foundation.dart';
-import 'event.dart';
+import 'model/event.dart';
 import 'strategies/base_strategy.dart';
 import 'storage/storage.dart';
 

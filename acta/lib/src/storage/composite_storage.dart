@@ -1,5 +1,5 @@
 import 'storage.dart';
-import '../event.dart';
+import '../model/event.dart';
 
 class CompositeStorage implements Storage {
   final List<Storage> storages;

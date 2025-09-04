@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/screens/key_error/color_item.dart';
+import 'package:flutter_base/screens/key_errors/color_item.dart';
 
 class KeyErrorScreen extends StatefulWidget {
   const KeyErrorScreen({super.key});

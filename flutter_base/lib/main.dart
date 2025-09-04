@@ -6,10 +6,11 @@ import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/screens/code_errors/code_errors_screen.dart';
 import 'package:flutter_base/navigation/custom_navigator_observer.dart';
-import 'package:flutter_base/screens/db_erros/db_errors_screen.dart';
+import 'package:flutter_base/screens/conection_errors/connection_error_screen.dart';
+import 'package:flutter_base/screens/db_errors/db_errors_screen.dart';
 import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
-import 'package:flutter_base/screens/key_error/key_error.dart';
+import 'package:flutter_base/screens/key_errors/key_error.dart';
 import 'package:flutter_base/screens/memory_leak/memory_leak.dart';
 // import 'package:flutter_base/firebase_options.dart';
 
@@ -114,6 +115,7 @@ class MyApp extends StatelessWidget {
         Routes.keyScreen: (_) => const KeyErrorScreen(),
         Routes.memoryLeakScreen: (_) => const MemoryLeakScreen(),
         Routes.dbErrors: (_) => const DbErrorScreen(),
+        Routes.connectionErrorScreen: (_) => const ConnectionErrorScreen(),
       },
       navigatorObservers: [CustomNavigatorObserver()],
     );

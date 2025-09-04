@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../event.dart';
-import '../loggers/console_logger.dart';
+import '../model/event.dart';
 
 sealed class Strategy {
   void handle(Event event);
 }
 
 class ConsoleStrategy implements Strategy {
-  final ConsoleLogger logger = ConsoleLogger();
-
   @override
   void handle(Event event) {
-    logger.log(event);
+    debugPrint(
+      '[${event.severity}] ${event.timestamp.toIso8601String()}: ${event.message}',
+    );
+    if (event.exception != null) debugPrint('Exception: ${event.exception}');
+    if (event.stackTrace != null) debugPrint('StackTrace: ${event.stackTrace}');
   }
 }
 

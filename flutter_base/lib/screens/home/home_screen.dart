@@ -76,6 +76,13 @@ class HomeScreen extends StatelessWidget {
             route: Routes.dbErrors,
             color: Colors.deepOrange,
           ),
+          _buildMenuButton(
+            context: context,
+            title: 'Connection Error',
+            icon: Icons.signal_cellular_off_sharp,
+            route: Routes.connectionErrorScreen,
+            color: Colors.green,
+          ),
         ],
       ),
     );

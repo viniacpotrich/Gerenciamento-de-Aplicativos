@@ -1,9 +1,8 @@
 library;
 
-export 'src/event.dart';
+export 'src/model/event.dart';
 export 'src/handler.dart';
 export 'src/handler2.dart';
-export 'src/loggers/console_logger.dart';
 export 'src/strategies/base_strategy.dart';
 export 'src/storage/storage.dart';
 export 'src/storage/composite_storage.dart';

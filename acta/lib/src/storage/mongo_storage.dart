@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 import 'storage.dart';
-import '../event.dart';
+import '../model/event.dart';
 
 class MongoStorage implements Storage {
   final String connectionString;
