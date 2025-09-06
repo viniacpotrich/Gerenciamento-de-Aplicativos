@@ -8,6 +8,7 @@ import 'package:flutter_base/screens/code_errors/code_errors_screen.dart';
 import 'package:flutter_base/navigation/custom_navigator_observer.dart';
 import 'package:flutter_base/screens/conection_errors/connection_error_screen.dart';
 import 'package:flutter_base/screens/db_errors/db_errors_screen.dart';
+import 'package:flutter_base/utils/error_dialog.dart';
 import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
 import 'package:flutter_base/screens/key_errors/key_error.dart';
@@ -59,9 +60,17 @@ void main() async {
     onCaptured: (Event? event) {
       var context2 = navigatorKey.currentState?.context;
       if (context2 != null) {
-        ScaffoldMessenger.of(
-          context2,
-        ).showSnackBar(debugSnackBar(event, context2));
+        // ScaffoldMessenger.of(
+        //   context2,
+        // ).showSnackBar(debugSnackBar(event, context2));
+        showDialog(
+          context: context2,
+          builder:
+              (_) => ErrorDialog(
+                title: '${event?.message}',
+                message: '${event?.exception}',
+              ),
+        );
       }
     },
     appRunner: () {
@@ -85,7 +94,6 @@ void main() async {
 }
 
 //TODO url invalida
-
 SnackBar debugSnackBar(Event? event, BuildContext context2) {
   return SnackBar(
     content: ListTile(
