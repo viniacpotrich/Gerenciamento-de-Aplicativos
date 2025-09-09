@@ -1,23 +1,39 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_x/app/modules/home/models/item_menu.dart';
+import 'package:get_x/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  final List<ItemMenu> menus = [
+    ItemMenu(
+      title: 'Code Errors',
+      icon: Icons.bug_report,
+      route: Routes.CODE_ERROR_SCREEN,
+      color: Colors.redAccent,
+    ),
+    ItemMenu(
+      title: 'Key Error',
+      icon: Icons.vpn_key,
+      route: Routes.KEY_SCREEN,
+      color: Colors.deepPurple,
+    ),
+    ItemMenu(
+      title: 'Memory Leak',
+      icon: Icons.memory,
+      route: Routes.MEMORY_LEAK_SCREEN,
+      color: Colors.amber,
+    ),
+    ItemMenu(
+      title: 'Light Error',
+      icon: Icons.running_with_errors,
+      route: Routes.DB_ERRORS_SCREEN,
+      color: Colors.deepOrange,
+    ),
+    ItemMenu(
+      title: 'Connection Error',
+      icon: Icons.signal_cellular_off_sharp,
+      route: Routes.CONNECTION_ERROR_SCREEN,
+      color: Colors.green,
+    ),
+  ];
 }
