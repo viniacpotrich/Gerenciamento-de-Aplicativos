@@ -1,16 +1,14 @@
+import 'package:acta/acta.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
-import 'storage.dart';
-import '../model/event.dart';
-
-class MongoStorage implements Storage {
+class MongoReporter implements Reporter {
   final String connectionString;
   final String dbName;
   final String collection;
   final bool compactMode;
 
-  MongoStorage({
+  MongoReporter({
     required this.connectionString,
     required this.dbName,
     required this.collection,
@@ -24,7 +22,7 @@ class MongoStorage implements Storage {
   }
 
   @override
-  Future<void> save(Event event) async {
+  Future<void> report(Event event) async {
     try {
       final db = await _connect();
       final coll = db.collection(collection);

@@ -1,19 +1,19 @@
-import 'storage.dart';
-import '../model/event.dart';
+import 'package:acta/acta.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ElasticsearchStorage implements Storage {
+class ElasticsearchReporter implements Reporter {
   final String connectionString;
   final String indexPattern;
 
-  ElasticsearchStorage({
+  ElasticsearchReporter({
     required this.connectionString,
     required this.indexPattern,
   });
 
   @override
-  Future<void> save(Event event) async {
+  Future<void> report(Event event) async {
     final url = Uri.parse(
       "$connectionString/$indexPattern/_doc/", // "http://localhost:9200/events/_doc",
     ); // index = events

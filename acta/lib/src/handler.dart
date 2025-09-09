@@ -1,42 +1,19 @@
 import 'dart:async';
+import 'package:acta/acta.dart';
+import 'package:acta/src/model/defines.dart';
 import 'package:acta/src/utils/utils.dart';
 import 'package:flutter/foundation.dart';
-import 'model/event.dart';
-import 'strategies/base_strategy.dart';
-import 'storage/storage.dart';
-
-typedef BeforeSend = FutureOr<Event?> Function(Event event);
-typedef OnCaptured = void Function(Event? event);
-
-class HandlerOptions {
-  final bool catchAsyncErrors;
-  final bool logFlutterErrors;
-  final bool logPlatformErrors;
-  final Severity minSeverity;
-  final int maxBreadcrumbs;
-
-  const HandlerOptions({
-    this.catchAsyncErrors = true,
-    this.logFlutterErrors = true,
-    this.logPlatformErrors = true,
-    this.minSeverity = Severity.info,
-    this.maxBreadcrumbs = 50,
-  });
-}
 
 class Handler {
-  static final List<Strategy> _strategies = [];
-  static Storage? _storage;
+  static final List<Reporter> _reporters = [];
   static late HandlerOptions _options;
-  static Map<String, dynamic> _globalContext = {};
-  static final List<Map<String, dynamic>> _breadcrumbs = [];
   static BeforeSend? _beforeSend;
   static OnCaptured? _onCaptured;
+  static Map<String, dynamic> _globalContext = {};
+  static final List<Map<String, dynamic>> _breadcrumbs = [];
 
-  /// Inicializa handlers globais e executa seu app.
   static void initialize({
-    required List<Strategy> strategies,
-    Storage? storage,
+    required List<Reporter> reporters,
     HandlerOptions options = const HandlerOptions(),
     BeforeSend? beforeSend,
     OnCaptured? onCaptured,
@@ -44,14 +21,13 @@ class Handler {
     required void Function() appRunner,
     ZoneSpecification? zoneSpecification,
   }) {
-    _strategies
+    _reporters
       ..clear()
-      ..addAll(strategies);
-    _storage = storage;
+      ..addAll(reporters);
     _options = options;
     _beforeSend = beforeSend;
     _onCaptured = onCaptured;
-    _globalContext = Map<String, dynamic>.from(initialContext ?? {});
+    _globalContext = {...?initialContext};
 
     if (_options.logFlutterErrors) {
       final prev = FlutterError.onError;
@@ -119,7 +95,6 @@ class Handler {
     }
   }
 
-  /// API manual de log
   static Future<void> capture({
     required String message,
     Object? exception,
@@ -130,7 +105,6 @@ class Handler {
   }) async {
     if (severity.index < _options.minSeverity.index) return;
     final fingerprint = generateFingerprint(exception, stackTrace);
-
     final event = Event(
       message: message,
       exception: exception,
@@ -145,14 +119,13 @@ class Handler {
     final maybe = await Future.value(_beforeSend?.call(event) ?? event);
     if (maybe == null) return;
 
-    // Estratégias síncronas
-    for (var strategy in _strategies) {
-      strategy.handle(maybe);
+    for (final r in _reporters) {
+      try {
+        await r.report(maybe);
+      } catch (e, s) {
+        debugPrint('[ACTA] reporter ${r.runtimeType} failed: $e\n$s');
+      }
     }
-
-    // Storage persistente
-    await _storage?.save(maybe);
-
     // Callback de notificação externa (UI, snackbars etc)
     _onCaptured?.call(maybe);
   }
