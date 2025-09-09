@@ -52,14 +52,14 @@ class HomeScreen extends StatelessWidget {
             context: context,
             title: 'Code Errors',
             icon: Icons.bug_report,
-            route: Routes.errorScreen,
+            route: Routes.codeErrorScreen,
             color: Colors.redAccent,
           ),
           _buildMenuButton(
             context: context,
             title: 'Key Error',
             icon: Icons.vpn_key,
-            route: Routes.keyScreen,
+            route: Routes.keyErrorScreen,
             color: Colors.deepPurple,
           ),
           _buildMenuButton(

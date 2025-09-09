@@ -6,7 +6,7 @@ import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/screens/code_errors/code_errors_screen.dart';
 import 'package:flutter_base/navigation/custom_navigator_observer.dart';
-import 'package:flutter_base/screens/conection_errors/connection_error_screen.dart';
+import 'package:flutter_base/screens/connection_errors/connection_error_screen.dart';
 import 'package:flutter_base/screens/db_errors/db_errors_screen.dart';
 import 'package:flutter_base/utils/error_dialog.dart';
 import 'package:flutter_base/screens/home/home_screen.dart';
@@ -17,33 +17,21 @@ import 'package:flutter_base/screens/memory_leak/memory_leak.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Handler.initialize(
-    // Handler2.initialize(
-    strategies: [
-      ConsoleStrategy(),
-      // GitHubIssueStrategy(
-      //   owner: 'meuUser',
-      //   repo: 'meuRepo',
-      //   token: 'meuToken',
-      //   minSeverity: Severity.critical,
-      // ),
-    ],
-    storage: CompositeStorage([
-      MongoStorage(
+    reporters: [
+      ConsoleReporter(),
+      MongoReporter(
         connectionString:
             'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
         dbName: 'error_logs',
         collection: 'logs',
-        compactMode: true,
+        // compactMode: true,
       ),
-      ElasticsearchStorage(
+      ElasticsearchReporter(
         connectionString: 'http://localhost:9200',
         indexPattern: 'logs',
       ),
-      // FirebaseStorage(),
-    ]),
-    // reporters: [ConsoleReporter(),],
+    ],
     options: const HandlerOptions(
       catchAsyncErrors: true,
       logFlutterErrors: true,
@@ -93,7 +81,6 @@ void main() async {
   );
 }
 
-//TODO url invalida
 SnackBar debugSnackBar(Event? event, BuildContext context2) {
   return SnackBar(
     content: ListTile(
@@ -119,8 +106,8 @@ class MyApp extends StatelessWidget {
       title: 'Erro Test App',
       home: const HomeScreen(),
       routes: {
-        Routes.errorScreen: (_) => const CodeErrorsScreen(),
-        Routes.keyScreen: (_) => const KeyErrorScreen(),
+        Routes.codeErrorScreen: (_) => const CodeErrorsScreen(),
+        Routes.keyErrorScreen: (_) => const KeyErrorScreen(),
         Routes.memoryLeakScreen: (_) => const MemoryLeakScreen(),
         Routes.dbErrors: (_) => const DbErrorScreen(),
         Routes.connectionErrorScreen: (_) => const ConnectionErrorScreen(),

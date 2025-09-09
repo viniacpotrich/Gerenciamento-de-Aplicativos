@@ -51,10 +51,10 @@ class _MemoryLeakScreenState extends State<MemoryLeakScreen> {
 
   @override
   void dispose() {
-    numberListener--;
     subscription.cancel();
 
     //FIX
+    // numberListener--;
     // timer?.cancel();
     super.dispose();
   }
