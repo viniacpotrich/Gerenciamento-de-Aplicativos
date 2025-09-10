@@ -1,42 +1,10 @@
 import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
-import 'package:get_x/utils/code_errors.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get_x/app/modules/code_errors/controllers/code_errors_controller.dart';
 
-class CodeErrorsScreen extends StatefulWidget {
-  const CodeErrorsScreen({super.key});
-
-  @override
-  State<CodeErrorsScreen> createState() => _CodeErrorsScreenState();
-}
-
-class _CodeErrorsScreenState extends State<CodeErrorsScreen> {
-  final List<_ErrorAction> actions = [
-    _ErrorAction(
-      title: "Cast Error",
-      description: "int inteiro = 0.0 as int",
-      action: methodErrorCast,
-    ),
-    _ErrorAction(
-      title: "Divide by Zero",
-      description: "10 ~/ 0",
-      action: methodDivideByZero,
-    ),
-    _ErrorAction(
-      title: "Null Check Error",
-      description: "text!.length",
-      action: methodNullError,
-    ),
-    _ErrorAction(
-      title: "Range Error",
-      description: "list[99]",
-      action: methodRangeError,
-    ),
-    _ErrorAction(
-      title: "Format Error",
-      description: "int.parse('not_a_number')",
-      action: methodFormatError,
-    ),
-  ];
+class CodeErrorsView extends GetView<CodeErrorsController> {
+  const CodeErrorsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +12,9 @@ class _CodeErrorsScreenState extends State<CodeErrorsScreen> {
       appBar: AppBar(title: Text("Code Errors")),
       body: ListView.builder(
         padding: EdgeInsets.all(12),
-        itemCount: actions.length,
+        itemCount: controller.actions.length,
         itemBuilder: (context, index) {
-          final item = actions[index];
+          final item = controller.actions[index];
           return Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -76,15 +44,4 @@ class _CodeErrorsScreenState extends State<CodeErrorsScreen> {
       ),
     );
   }
-}
-
-class _ErrorAction {
-  final String title;
-  final String description;
-  final VoidCallback action;
-  _ErrorAction({
-    required this.title,
-    required this.description,
-    required this.action,
-  });
 }

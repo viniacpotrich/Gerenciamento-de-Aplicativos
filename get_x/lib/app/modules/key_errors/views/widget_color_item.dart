@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ColorItem extends StatefulWidget {
+class WidgetColorItem extends StatefulWidget {
   final Color initialColor;
   final String title;
 
-  const ColorItem({super.key, required this.initialColor, required this.title});
+  const WidgetColorItem({
+    super.key,
+    required this.initialColor,
+    required this.title,
+  });
 
   @override
-  State<ColorItem> createState() => _ColorItemState();
+  State<WidgetColorItem> createState() => _WidgetColorItemState();
 }
 
-class _ColorItemState extends State<ColorItem> {
+class _WidgetColorItemState extends State<WidgetColorItem> {
   late Color _color;
 
   @override

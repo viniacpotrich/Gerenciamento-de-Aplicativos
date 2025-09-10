@@ -1,27 +1,10 @@
 import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get_x/app/modules/db_errors/controllers/db_errors_controller.dart';
 
-class DbErrorScreen extends StatefulWidget {
-  const DbErrorScreen({super.key});
-
-  @override
-  State<DbErrorScreen> createState() => _DbErrorScreenState();
-}
-
-class _DbErrorScreenState extends State<DbErrorScreen> {
-  final List<_ErrorAction> actions = [
-    _ErrorAction(
-      title: "Blue Screen Error",
-      description: "Apenas um erro com tag de Blue Screen",
-      tag: "Blue Screen",
-    ),
-    _ErrorAction(
-      title: "Just warning",
-      description: "Nem erro e",
-      tag: "Just warning",
-    ),
-    _ErrorAction(title: "Virus", description: "HELP", tag: "Virus"),
-  ];
+class DbErrorView extends GetView<DbErrorsController> {
+  const DbErrorView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +12,9 @@ class _DbErrorScreenState extends State<DbErrorScreen> {
       appBar: AppBar(title: Text("Erros Tag")),
       body: ListView.builder(
         padding: EdgeInsets.all(12),
-        itemCount: actions.length,
+        itemCount: controller.actions.length,
         itemBuilder: (context, index) {
-          final item = actions[index];
+          final item = controller.actions[index];
           return Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -59,26 +42,6 @@ class _DbErrorScreenState extends State<DbErrorScreen> {
           );
         },
       ),
-    );
-  }
-}
-
-class _ErrorAction {
-  final String title;
-  final String description;
-  final String tag;
-  _ErrorAction({
-    required this.title,
-    required this.description,
-    required this.tag,
-  });
-
-  void methodCapture() {
-    Handler.capture(
-      message:
-          '$title Apenas um teste de erro com TAG = $tag e desc = $description',
-      severity: Severity.info,
-      tag: tag,
     );
   }
 }
