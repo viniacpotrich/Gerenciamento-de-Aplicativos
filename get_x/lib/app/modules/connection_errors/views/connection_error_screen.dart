@@ -16,7 +16,7 @@ class ConnectionErrorsScreen extends GetView<ConnectionErrorsController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                controller.status,
+                controller.status.value,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 18),
               ),

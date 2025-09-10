@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_x/app/data/services/some_service.dart';
 
+final someService = SomeService(); //TODO ver onde colocar o service depois
+
 class MemoryLeakController extends GetxController {
   final ValueNotifier<Color> sharedColor = ValueNotifier(Colors.white);
   final Random _random = Random();
@@ -12,9 +14,10 @@ class MemoryLeakController extends GetxController {
 
   late StreamSubscription subscription;
   late Timer? timer;
-  final someService = SomeService(); //TODO ver onde colocar o service depois
 
-  void initState() {
+  @override
+  void onInit() {
+    super.onInit();
     // Each “leaked” listener updates sharedColor safely
     subscription = someService.stream.listen((_) {
       sharedColor.value = Color.fromARGB(
@@ -32,9 +35,9 @@ class MemoryLeakController extends GetxController {
     numberListener++;
   }
 
+  @override
   void dispose() {
     subscription.cancel();
-
     //FIX
     // numberListener--;
     // timer?.cancel();
