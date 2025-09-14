@@ -1,4 +1,5 @@
 import 'package:acta/acta.dart';
+import 'package:acta/src/model/events/error_event.dart';
 import 'package:flutter/foundation.dart';
 
 class ConsoleReporter implements Reporter {
@@ -8,19 +9,34 @@ class ConsoleReporter implements Reporter {
   @override
   Future<void> report(Event r) async {
     final b = StringBuffer();
+
+    // Basic info
     b.writeln(
       '[${r.severity.name.toUpperCase()}] ${r.timestamp.toIso8601String()}',
     );
-    b.writeln('content: ${r.message}');
-    if (r.stackTrace != null) b.writeln('stack: ${r.stackTrace}');
-    if (r.metadata != null) b.writeln('meta: ${r.metadata}');
+    b.writeln('Message: ${r.message}');
+    b.writeln('FingerPrint: ${r.fingerPrint}');
+
+    // Optional metadata
+    if (r.metadata != null && r.metadata!.isNotEmpty) {
+      b.writeln('Metadata: ${r.metadata}');
+    }
+
+    // Breadcrumbs
     if (r.breadcrumbs.isNotEmpty) {
-      b.writeln('breadcrumbs:');
+      b.writeln('Breadcrumbs:');
       for (final bc in r.breadcrumbs) {
         b.writeln('  - $bc');
       }
     }
-    b.writeln('fingerPrint : ${r.fingerPrint}');
-    pretty ? debugPrint(b.toString()) : debugPrint(b.toString());
+
+    // If it's an ErrorEvent, print exception and stackTrace
+    if (r is ErrorEvent) {
+      if (r.exception != null) b.writeln('Exception: ${r.exception}');
+      if (r.stackTrace != null) b.writeln('StackTrace: ${r.stackTrace}');
+    }
+
+    // Print to console
+    debugPrint(b.toString());
   }
 }

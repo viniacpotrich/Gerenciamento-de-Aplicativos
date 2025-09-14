@@ -48,9 +48,11 @@ class MyApp extends StatelessWidget {
                 onPressed: () {
                   Handler.addBreadcrumb('Pressed INFO');
                   Handler.capture(
-                    message: 'User pressed info',
-                    severity: Severity.info,
-                    meta: {'screen': 'home'},
+                    event: Event(
+                      message: 'User pressed info',
+                      severity: Severity.info,
+                      metadata: {'screen': 'home'},
+                    ),
                   );
                 },
                 child: const Text('Log info'),

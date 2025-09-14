@@ -1,7 +1,9 @@
 library;
 
 export 'src/handler.dart';
-export 'src/model/event.dart';
+export 'src/model/events/event.dart';
+export 'src/model/events/error_event.dart';
+export 'src/model/severity.dart';
 export 'src/model/handler_options.dart';
 export 'src/reporters/reporter.dart';
 export 'src/reporters/reporters_impl/console_reporter.dart';

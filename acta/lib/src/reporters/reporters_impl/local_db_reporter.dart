@@ -8,14 +8,6 @@ class LocalDbReporter implements Reporter {
 
   @override
   Future<void> report(Event r) async {
-    await box.add({
-      'level': r.severity.name,
-      'timestamp': r.timestamp.toIso8601String(),
-      'content': r.message.toString(),
-      'stack': r.stackTrace?.toString(),
-      'meta': r.metadata,
-      'breadcrumbs': r.breadcrumbs,
-      'fingerPrint': r.fingerPrint,
-    });
+    await box.add(r.toJson());
   }
 }
