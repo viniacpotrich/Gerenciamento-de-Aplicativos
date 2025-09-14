@@ -31,6 +31,7 @@ void main() async {
         connectionString: 'http://localhost:9200',
         indexPattern: 'logs',
       ),
+      // Fire
     ],
     options: const HandlerOptions(
       catchAsyncErrors: true,
