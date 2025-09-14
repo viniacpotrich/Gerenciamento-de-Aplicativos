@@ -66,8 +66,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
         showDialog(
           context: context2,
           builder: (_) => ErrorDialog(
-            title: '${event?.message}',
-            message: '${event?.exception}',
+            title: 'Oops Algum erro ocorreu!',
+            message: '${event?.toString()}',
           ),
         );
       }

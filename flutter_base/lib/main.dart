@@ -56,8 +56,8 @@ void main() async {
           context: context2,
           builder:
               (_) => ErrorDialog(
-                title: '${event?.message}',
-                message: '${event?.exception}',
+                title: 'Oops Algum erro ocorreu!',
+                message: '${event?.toString()}',
               ),
         );
       }
@@ -86,11 +86,11 @@ SnackBar debugSnackBar(Event? event, BuildContext context2) {
   return SnackBar(
     content: ListTile(
       title: Text(
-        event?.message ?? '',
+        'Oops Algum erro ocorreu!',
         style: TextStyle(color: Theme.of(context2).colorScheme.onPrimary),
       ),
       subtitle: Text(
-        event?.exception.toString() ?? '',
+        '${event?.toString()}',
         style: TextStyle(color: Theme.of(context2).colorScheme.onPrimary),
       ),
     ),

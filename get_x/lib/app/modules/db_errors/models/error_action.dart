@@ -12,10 +12,12 @@ class ErrorAction {
 
   void methodCapture() {
     Handler.capture(
-      message:
-          '$title Apenas um teste de erro com TAG = $tag e desc = $description',
-      severity: Severity.info,
-      tag: tag,
+      event: Event(
+        message:
+            '$title Apenas um teste de erro com TAG = $tag e desc = $description',
+        severity: Severity.info,
+        tag: tag,
+      ),
     );
   }
 }

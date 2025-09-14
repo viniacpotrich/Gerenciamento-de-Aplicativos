@@ -30,9 +30,11 @@ class ConnectionErrorsCubit extends Cubit<String> {
 
   void captureMethod(String str) {
     Handler.capture(
-      message: str,
-      severity: Severity.warning,
-      tag: 'Connection',
+      event: Event(
+        message: str,
+        severity: Severity.warning,
+        tag: 'Connection',
+      ),
     );
   }
 }

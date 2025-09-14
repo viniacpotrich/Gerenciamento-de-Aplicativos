@@ -27,9 +27,7 @@ class ConnectionErrorsController extends GetxController {
 
   void captureMethod({required String str}) {
     Handler.capture(
-      message: str,
-      severity: Severity.warning,
-      tag: 'Connection',
+      event: Event(message: str, severity: Severity.warning, tag: 'Connection'),
     );
   }
 }
