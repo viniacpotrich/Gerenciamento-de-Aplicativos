@@ -1,122 +1,144 @@
+import 'dart:async';
+import 'dart:developer' as developer;
+
+import 'package:acta/acta.dart';
+import 'package:clean_arch/presentation/code_errors/view_models/code_errors_controller.dart';
+import 'package:clean_arch/presentation/code_errors/views/code_errors_view.dart';
+import 'package:clean_arch/presentation/connection_errors/view_models/connection_errors_view_model.dart';
+import 'package:clean_arch/presentation/connection_errors/views/connection_error_screen.dart';
+import 'package:clean_arch/presentation/db_errors/view_models/db_errors_view_model.dart';
+import 'package:clean_arch/presentation/db_errors/views/db_errors_view.dart';
+import 'package:clean_arch/presentation/home/view_models/home_view_model.dart';
+import 'package:clean_arch/presentation/home/views/home_view.dart';
+import 'package:clean_arch/presentation/key_errors/view_models/key_errors_view_model.dart';
+import 'package:clean_arch/presentation/key_errors/views/key_errors_view.dart';
+import 'package:clean_arch/presentation/memory_leak/view_models/memory_leak_view_model.dart';
+import 'package:clean_arch/presentation/memory_leak/views/memory_leak_view.dart';
+import 'package:clean_arch/routes/routes.dart';
+import 'package:clean_arch/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
-  runApp(const MyApp());
+  Handler.initialize(
+    reporters: [
+      ConsoleReporter(),
+      MongoReporter(
+        connectionString:
+            'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
+        dbName: 'error_logs',
+        collection: 'logs',
+        // compactMode: true,
+      ),
+      ElasticsearchReporter(
+        connectionString: 'http://localhost:9200',
+        indexPattern: 'logs',
+      ),
+      // Fire
+    ],
+    options: const HandlerOptions(
+      catchAsyncErrors: true,
+      logFlutterErrors: true,
+      logPlatformErrors: true,
+      minSeverity: Severity.info,
+      maxBreadcrumbs: 50,
+    ),
+    initialContext: {'appVersion': '1.0.0', 'build': 1, 'env': 'dev'},
+    beforeSend: (Event event) {
+      // Example: drop noisy debug logs in release
+      // if (kReleaseMode && report.level == BugLevel.debug) return null;
+      return event;
+    },
+    onCaptured: (Event? event) {
+      var context2 = navigatorKey.currentState?.context;
+      if (context2 != null) {
+        // ScaffoldMessenger.of(
+        //   context2,
+        // ).showSnackBar(debugSnackBar(event, context2));
+        showDialog(
+          context: context2,
+          builder:
+              (_) => ErrorDialog(
+                title: 'Oops Algum erro ocorreu!',
+                message: '${event?.toString()}',
+              ),
+        );
+      }
+    },
+    appRunner: () {
+      runApp(const MyApp());
+    },
+    zoneSpecification: ZoneSpecification(
+      print: (self, parent, zone, line) {
+        developer.log("[PRINT] $line");
+        parent.print(zone, line);
+      },
+      createTimer: (self, parent, zone, duration, callback) {
+        developer.log("[TIMER] Scheduled for $duration");
+        return parent.createTimer(zone, duration, callback);
+      },
+      scheduleMicrotask: (self, parent, zone, task) {
+        developer.log("[MICROTASK] New microtask scheduled");
+        parent.scheduleMicrotask(zone, task);
+      },
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<HomeViewModel>(
+          lazy: false,
+          create: (_) => HomeViewModel(),
         ),
+        ChangeNotifierProvider<CodeErrorsViewModel>(
+          lazy: false,
+          create: (_) => CodeErrorsViewModel(),
+        ),
+        ChangeNotifierProvider<ConnectionErrorsViewModel>(
+          lazy: false,
+          create: (_) => ConnectionErrorsViewModel(),
+        ),
+        ChangeNotifierProvider<DbErrorsViewModel>(
+          lazy: false,
+          create: (_) => DbErrorsViewModel(),
+        ),
+        ChangeNotifierProvider<KeyErrorsViewModel>(
+          lazy: false,
+          create: (_) => KeyErrorsViewModel(),
+        ),
+        ChangeNotifierProvider<MemoryLeakViewModel>(
+          lazy: false,
+          create: (_) => MemoryLeakViewModel(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        initialRoute: Routes.home,
+        routes: {
+          Routes.home: (context) => HomeView(viewModel: context.watch()),
+          Routes.codeErrorScreen:
+              (context) => CodeErrorsView(viewModel: context.watch()),
+          Routes.connectionErrorScreen:
+              (context) => ConnectionErrorsView(viewModel: context.watch()),
+          Routes.keyErrorScreen:
+              (context) => KeyErrorView(viewModel: context.watch()),
+          Routes.memoryLeakScreen:
+              (context) => MemoryLeakView(viewModel: context.watch()),
+          Routes.dbErrors: (context) => DbErrorView(viewModel: context.watch()),
+        },
+        navigatorKey: navigatorKey,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
