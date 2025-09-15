@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good/home/models/item_menu.dart';
-import 'package:very_good/utils/routes.dart';
+import 'package:very_good/routes/routes.dart';
 
 class HomeCubit extends Cubit<List<ItemMenu>> {
   HomeCubit()

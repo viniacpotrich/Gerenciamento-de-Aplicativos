@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:very_good/bootstrap.dart';
 import 'package:very_good/l10n/arb/app_localizations.dart';
-import 'package:very_good/routes/routes.dart';
+import 'package:very_good/routes/go_router.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

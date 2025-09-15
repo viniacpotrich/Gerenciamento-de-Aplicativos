@@ -1,7 +1,7 @@
 import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:very_good/code_errors/cubit/code_errors_controller.dart';
+import 'package:very_good/code_errors/controllers/code_errors_controller.dart';
 
 class CodeErrorsPage extends StatelessWidget {
   const CodeErrorsPage({super.key});
