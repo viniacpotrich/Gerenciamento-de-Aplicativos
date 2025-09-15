@@ -6,7 +6,7 @@ class ConnectionErrorsCubit extends Cubit<String> {
 
   Future<void> simulateHttpError() async {
     emit('🌐 HTTP Request...');
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
     const msg = '❌ HTTP 500 Internal Server Error';
     emit(msg);
     captureMethod(msg);
@@ -14,7 +14,7 @@ class ConnectionErrorsCubit extends Cubit<String> {
 
   Future<void> simulateBluetoothError() async {
     emit('🔍 Scanning Bluetooth...');
-    await Future.delayed(const Duration(seconds: 3));
+    await Future<void>.delayed(const Duration(seconds: 3));
     const msg = '❌ Bluetooth device not found';
     emit(msg);
     captureMethod(msg);
@@ -22,7 +22,7 @@ class ConnectionErrorsCubit extends Cubit<String> {
 
   Future<void> simulateMqttError() async {
     emit('🔌 Connecting to MQTT...');
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
     const msg = '❌ Failed to connect to MQTT broker';
     emit(msg);
     captureMethod(msg);
