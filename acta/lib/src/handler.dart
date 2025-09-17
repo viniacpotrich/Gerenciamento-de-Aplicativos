@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:isolate';
 import 'package:acta/acta.dart';
 import 'package:acta/src/model/defines.dart';
 import 'package:flutter/foundation.dart';
@@ -111,11 +112,54 @@ class Handler {
 
     for (final r in _reporters) {
       try {
-        await r.report(maybe);
+        _reportEventMethod(r, maybe);
+        // ========================================================================
+        // Pass only serializable data
+        // await compute(_isolateEntry, {
+        //   'reporterType': r.runtimeType.toString(),
+        //   'event': maybe.toJson(), // <- you need toJson()
+        // });
+        // ========================================================================
+        // final receivePort = ReceivePort();
+        // await Isolate.spawn(_isolateWorker, {
+        //   'sendPort': receivePort.sendPort,
+        //   'reporterType': r.runtimeType.toString(),
+        //   'event': maybe.toJson(), // <- again must be serializable
+        // });
+        // // optional: wait for completion
+        // await for (var message in receivePort) {
+        //   if (message == 'done') {
+        //     receivePort.close();
+        //     break;
+        //   }
+        // }
+        // ========================================================================
       } catch (e, s) {
         debugPrint('[ACTA] reporter ${r.runtimeType} failed: $e\n$s');
       }
     }
     _onCaptured?.call(maybe);
   }
+
+  static _reportEventMethod(Reporter r, Event event) async =>
+      await r.report(event);
+
+  //TODO colocar como pontos futuros
+  // // isolate function (must be top-level or static)
+  // static Future<void> _isolateEntry(Map<String, dynamic> args) async {
+  //   final String reporterType = args['reporterType'];
+  //   final event = Event.fromJson(args['event']); // <- you need fromJson()
+  //   // Recreate reporter based on type
+  //   final Reporter r = Reporter.create(reporterType);
+  //   await _reportEventMethod(r, event);
+  // }
+
+  // static Future<void> _isolateWorker(Map<String, dynamic> args) async {
+  //   final sendPort = args['sendPort'] as SendPort;
+  //   final String reporterType = args['reporterType'];
+  //   final event = Event.fromJson(args['event']);
+  //   final Reporter r = Reporter.create(reporterType);
+  //   await _reportEventMethod(r, event);
+  //   sendPort.send('done');
+  // }
 }
