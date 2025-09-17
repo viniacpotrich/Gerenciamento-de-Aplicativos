@@ -6,6 +6,7 @@ import 'package:very_good/db_errors/views/db_errors_view.dart';
 import 'package:very_good/home/views/home_view.dart';
 import 'package:very_good/key_errors/views/key_errors_view.dart';
 import 'package:very_good/memory_leak/views/memory_leak_view.dart';
+import 'package:very_good/native_error/views/native_error_view.dart';
 import 'package:very_good/routes/custom_navigator_observer.dart';
 import 'package:very_good/routes/routes.dart';
 
@@ -48,6 +49,12 @@ final GoRouter router = GoRouter(
           path: Routes.connectionErrorScreen,
           builder: (BuildContext context, GoRouterState state) {
             return const ConnectionErrorsPage();
+          },
+        ),
+        GoRoute(
+          path: Routes.nativeError,
+          builder: (BuildContext context, GoRouterState state) {
+            return const NativeErrorPage();
           },
         ),
       ],

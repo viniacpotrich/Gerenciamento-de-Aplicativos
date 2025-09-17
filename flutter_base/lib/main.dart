@@ -8,6 +8,7 @@ import 'package:flutter_base/screens/code_errors/code_errors_screen.dart';
 import 'package:flutter_base/navigation/custom_navigator_observer.dart';
 import 'package:flutter_base/screens/connection_errors/connection_error_screen.dart';
 import 'package:flutter_base/screens/db_errors/db_errors_screen.dart';
+import 'package:flutter_base/screens/native_error/native_error.dart';
 import 'package:flutter_base/utils/error_dialog.dart';
 import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
@@ -112,6 +113,7 @@ class MyApp extends StatelessWidget {
         Routes.memoryLeakScreen: (_) => const MemoryLeakScreen(),
         Routes.dbErrors: (_) => const DbErrorScreen(),
         Routes.connectionErrorScreen: (_) => const ConnectionErrorScreen(),
+        Routes.nativeError: (_) => const NativeErrorScreen(),
       },
       navigatorObservers: [CustomNavigatorObserver()],
     );

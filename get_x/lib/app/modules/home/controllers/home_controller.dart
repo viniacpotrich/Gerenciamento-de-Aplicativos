@@ -33,6 +33,12 @@ class HomeController extends GetxController {
       title: 'Connection Error',
       icon: Icons.signal_cellular_off_sharp,
       route: Routes.CONNECTION_ERROR_SCREEN,
+      color: Colors.cyan,
+    ),
+    ItemMenu(
+      title: 'Native Error',
+      icon: Icons.android,
+      route: Routes.NATIVE_ERROR_SCREEN,
       color: Colors.green,
     ),
   ];

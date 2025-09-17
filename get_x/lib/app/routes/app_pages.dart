@@ -9,6 +9,7 @@ import 'package:get_x/app/modules/key_errors/bindings/key_errros_binding.dart';
 import 'package:get_x/app/modules/key_errors/views/key_errors_view.dart';
 import 'package:get_x/app/modules/memory_leak/bindings/memory_leak_binding.dart';
 import 'package:get_x/app/modules/memory_leak/views/memory_leak_view.dart';
+import 'package:get_x/app/modules/native_error/views/native_error_view.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -49,6 +50,11 @@ class AppPages {
     GetPage(
       name: _Paths.CONNECTION_ERROR_SCREEN,
       page: () => const ConnectionErrorsScreen(),
+      binding: ConnectionErrorsBinding(),
+    ),
+    GetPage(
+      name: _Paths.NATIVE_ERROR_SCREEN,
+      page: () => const NativeErrorView(),
       binding: ConnectionErrorsBinding(),
     ),
   ];

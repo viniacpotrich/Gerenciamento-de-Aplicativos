@@ -32,6 +32,12 @@ class HomeViewModel extends ChangeNotifier {
       title: 'Connection Error',
       icon: Icons.signal_cellular_off_sharp,
       route: Routes.connectionErrorScreen,
+      color: Colors.cyan,
+    ),
+    ItemMenu(
+      title: 'Native Error',
+      icon: Icons.android,
+      route: Routes.nativeError,
       color: Colors.green,
     ),
   ];

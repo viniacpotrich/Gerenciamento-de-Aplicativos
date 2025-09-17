@@ -5,4 +5,5 @@ abstract final class Routes {
   static const memoryLeakScreen = 'memory_leak_screen';
   static const dbErrors = 'db_errors';
   static const connectionErrorScreen = 'connection_error_screen';
+  static const nativeError = '/native_error_screen';
 }
