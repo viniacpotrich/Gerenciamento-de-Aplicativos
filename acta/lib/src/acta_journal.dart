@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:isolate';
+// import 'dart:isolate';
 import 'package:acta/acta.dart';
 import 'package:acta/src/model/defines.dart';
 import 'package:flutter/foundation.dart';
 
-class Handler {
+class ActaJournal {
   static final List<Reporter> _reporters = [];
   static late HandlerOptions _options;
   static BeforeSend? _beforeSend;
@@ -32,7 +32,7 @@ class Handler {
     if (_options.logFlutterErrors) {
       final prev = FlutterError.onError;
       FlutterError.onError = (FlutterErrorDetails details) {
-        capture(
+        report(
           event: ErrorEvent(
             message: "FlutterError caught",
             exception: details.exception,
@@ -46,7 +46,7 @@ class Handler {
 
     if (_options.logPlatformErrors) {
       PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
-        capture(
+        report(
           event: ErrorEvent(
             message: "Platform error caught",
             exception: error,
@@ -60,7 +60,7 @@ class Handler {
 
     if (_options.catchAsyncErrors) {
       runZonedGuarded(appRunner, (Object error, StackTrace stack) {
-        capture(
+        report(
           event: ErrorEvent(
             message: "Async error caught",
             exception: error,
@@ -97,7 +97,7 @@ class Handler {
     }
   }
 
-  static Future<void> capture({
+  static Future<void> report({
     required Event event,
     Map<String, dynamic>? meta,
   }) async {
@@ -163,3 +163,25 @@ class Handler {
   //   sendPort.send('done');
   // }
 }
+
+
+// TODO 
+// metodo channel kotlin
+// Documentar o TCC
+//    BPM, Fluxograma
+//    Exemplos de json, repostas, FERRAMENTAS 
+//    Pacote
+//    Apps exemplos para uso do pacote
+// cojitar colocar no pub dev //https://dart.dev/tools/dart-doc
+// Erro de tela
+// ---------------- 
+// Sentry Firebase
+// Melhorar erros de network (nas camadas)
+// ElasticSearch levantar docker 
+// Ferramentas existentes
+// Id de app
+
+
+
+// METADATA AINDA TA IGUAL
+// Talvez por tudo em pt-BR?

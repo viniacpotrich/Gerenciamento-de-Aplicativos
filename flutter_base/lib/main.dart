@@ -18,7 +18,7 @@ import 'package:flutter_base/screens/memory_leak/memory_leak.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
-  Handler.initialize(
+  ActaJournal.initialize(
     reporters: [
       ConsoleReporter(),
       MongoReporter(

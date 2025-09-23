@@ -47,7 +47,7 @@ class DbErrorView extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
                 onPressed: () {
-                  Handler.addBreadcrumb('Pressed button on ${item.title}');
+                  ActaJournal.addBreadcrumb('Pressed button on ${item.title}');
                   item.methodCapture();
                 },
                 child: const Text('Trigger'),

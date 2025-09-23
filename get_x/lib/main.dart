@@ -13,7 +13,7 @@ import 'app/routes/app_pages.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
-  Handler.initialize(
+  ActaJournal.initialize(
     reporters: [
       ConsoleReporter(),
       MongoReporter(

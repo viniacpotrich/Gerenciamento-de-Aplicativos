@@ -8,7 +8,7 @@ void main() async {
   await Hive.initFlutter();
   final logBox = await Hive.openBox('acta_logs');
 
-  Handler.initialize(
+  ActaJournal.initialize(
     reporters: [
       ConsoleReporter(),
       LocalDbReporter(logBox),
@@ -46,8 +46,8 @@ class MyApp extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Handler.addBreadcrumb('Pressed INFO');
-                  Handler.capture(
+                  ActaJournal.addBreadcrumb('Pressed INFO');
+                  ActaJournal.report(
                     event: Event(
                       message: 'User pressed info',
                       severity: Severity.info,
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Handler.addBreadcrumb('Pressed ERROR');
+                  ActaJournal.addBreadcrumb('Pressed ERROR');
                   throw Exception('Boom!');
                 },
                 child: const Text('Throw error'),

@@ -1,6 +1,6 @@
 library;
 
-export 'src/handler.dart';
+export 'src/acta_journal.dart';
 export 'src/model/events/event.dart';
 export 'src/model/events/error_event.dart';
 export 'src/model/severity.dart';
@@ -14,4 +14,4 @@ export 'src/reporters/reporters_impl/elasticsearch_reporter.dart';
 export 'src/reporters/reporters_impl/mongo_reporter.dart';
 
 ///TODO VER
-export 'src/utils/log_flusher.dart';
+// export 'src/utils/log_flusher.dart';

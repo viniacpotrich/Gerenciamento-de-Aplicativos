@@ -33,7 +33,7 @@ class _ConnectionErrorScreenState extends State<ConnectionErrorScreen> {
   }
 
   void captureMethod({required String str}) {
-    Handler.capture(
+    ActaJournal.report(
       event: Event(message: str, severity: Severity.warning, tag: 'Connection'),
     );
   }

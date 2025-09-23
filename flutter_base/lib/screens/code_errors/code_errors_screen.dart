@@ -65,7 +65,7 @@ class _CodeErrorsScreenState extends State<CodeErrorsScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
                 onPressed: () {
-                  Handler.addBreadcrumb("Pressed button on ${item.title}");
+                  ActaJournal.addBreadcrumb("Pressed button on ${item.title}");
                   item.action();
                 },
                 child: Text("Trigger"),

@@ -11,7 +11,7 @@ class ErrorAction {
   final String tag;
 
   void methodCapture() {
-    Handler.capture(
+    ActaJournal.report(
       event: Event(
         message:
             '$title Apenas um teste de erro com TAG = $tag e desc = $description',

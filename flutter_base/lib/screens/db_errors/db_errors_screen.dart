@@ -50,7 +50,7 @@ class _DbErrorScreenState extends State<DbErrorScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
                 onPressed: () {
-                  Handler.addBreadcrumb("Pressed button on ${item.title}");
+                  ActaJournal.addBreadcrumb("Pressed button on ${item.title}");
                   item.methodCapture();
                 },
                 child: Text("Trigger"),
@@ -74,7 +74,7 @@ class _ErrorAction {
   });
 
   void methodCapture() {
-    Handler.capture(
+    ActaJournal.report(
       event: Event(
         message:
             '$title Apenas um teste de erro com TAG = $tag e desc = $description',

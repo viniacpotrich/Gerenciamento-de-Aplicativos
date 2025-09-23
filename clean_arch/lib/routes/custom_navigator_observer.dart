@@ -7,7 +7,7 @@ class CustomNavigatorObserver extends NavigatorObserver {
   @override
   void didPush(Route route, Route? previousRoute) {
     if (!_isDialog(route)) {
-      Handler.addBreadcrumb('Route pushed: ${route.settings.name}');
+      ActaJournal.addBreadcrumb('Route pushed: ${route.settings.name}');
     }
     super.didPush(route, previousRoute);
   }
@@ -15,7 +15,7 @@ class CustomNavigatorObserver extends NavigatorObserver {
   @override
   void didPop(Route route, Route? previousRoute) {
     if (!_isDialog(route)) {
-      Handler.addBreadcrumb('Route popped: ${route.settings.name}');
+      ActaJournal.addBreadcrumb('Route popped: ${route.settings.name}');
     }
     super.didPop(route, previousRoute);
   }

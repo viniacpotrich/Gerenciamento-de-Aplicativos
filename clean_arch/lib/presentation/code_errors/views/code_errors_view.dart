@@ -35,7 +35,7 @@ class CodeErrorsView extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Handler.addBreadcrumb('Pressed button on ${item.title}');
+                  ActaJournal.addBreadcrumb('Pressed button on ${item.title}');
                   item.action();
                 },
                 child: const Text('Trigger'),

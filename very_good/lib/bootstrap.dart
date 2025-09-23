@@ -31,7 +31,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
 
   Bloc.observer = const AppBlocObserver();
-  Handler.initialize(
+  ActaJournal.initialize(
     reporters: [
       ConsoleReporter(),
       MongoReporter(
