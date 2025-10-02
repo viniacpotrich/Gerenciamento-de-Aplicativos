@@ -1,7 +1,6 @@
 name: acta
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
 
 environment:
   sdk: ^3.7.2
@@ -28,3 +27,7 @@ dev_dependencies:
 
 flutter:
 
+publish_to: "https://pub.dev" 
+
+repository:  https://github.com/viniacpotrich/Gerenciamento-de-Aplicativos/acta
+homepage: https://github.com/viniacpotrich
