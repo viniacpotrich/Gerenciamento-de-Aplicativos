@@ -5,6 +5,7 @@ import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_x/app/data/services/info_service.dart';
 import 'package:get_x/app/routes/custom_navigator_observer.dart';
 import 'package:get_x/utils/error_dialog.dart';
 
@@ -12,7 +13,7 @@ import 'app/routes/app_pages.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-void main() {
+void main() async {
   ActaJournal.initialize(
     reporters: [
       ConsoleReporter(),
@@ -36,7 +37,7 @@ void main() {
       minSeverity: Severity.info,
       maxBreadcrumbs: 50,
     ),
-    initialContext: {'appVersion': '1.0.0', 'build': 1, 'env': 'dev'},
+    initialContext: await InfoService.collectAsJson(),
     beforeSend: (Event event) => event,
     onCaptured: (Event? event) {
       var context2 = navigatorKey.currentState?.context;

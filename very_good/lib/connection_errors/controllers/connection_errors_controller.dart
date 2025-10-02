@@ -30,7 +30,7 @@ class ConnectionErrorsCubit extends Cubit<String> {
 
   void captureMethod(String str) {
     ActaJournal.report(
-      event: Event(
+      event: BaseEvent(
         message: str,
         severity: Severity.warning,
         tag: 'Connection',

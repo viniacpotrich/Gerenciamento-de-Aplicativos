@@ -14,6 +14,7 @@ import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
 import 'package:flutter_base/screens/key_errors/key_error.dart';
 import 'package:flutter_base/screens/memory_leak/memory_leak.dart';
+import 'package:flutter_base/utils/info_service.dart';
 // import 'package:flutter_base/firebase_options.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -41,7 +42,7 @@ void main() async {
       minSeverity: Severity.info,
       maxBreadcrumbs: 50,
     ),
-    initialContext: {'appVersion': '1.0.0', 'build': 1, 'env': 'dev'},
+    initialContext: await InfoService.collectAsJson(),
     beforeSend: (Event event) {
       // Example: drop noisy debug logs in release
       // if (kReleaseMode && report.level == BugLevel.debug) return null;

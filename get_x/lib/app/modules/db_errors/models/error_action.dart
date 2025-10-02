@@ -12,7 +12,7 @@ class ErrorAction {
 
   void methodCapture() {
     ActaJournal.report(
-      event: Event(
+      event: BaseEvent(
         message:
             '$title Apenas um teste de erro com TAG = $tag e desc = $description',
         severity: Severity.info,

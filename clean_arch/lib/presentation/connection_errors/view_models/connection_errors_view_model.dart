@@ -36,7 +36,11 @@ class ConnectionErrorsViewModel extends ChangeNotifier {
 
   void captureMethod(String str) {
     ActaJournal.report(
-      event: Event(message: str, severity: Severity.warning, tag: 'Connection'),
+      event: BaseEvent(
+        message: str,
+        severity: Severity.warning,
+        tag: 'Connection',
+      ),
     );
   }
 }

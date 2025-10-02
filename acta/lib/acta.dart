@@ -2,6 +2,7 @@ library;
 
 export 'src/acta_journal.dart';
 export 'src/model/events/event.dart';
+export 'src/model/events/base_event.dart';
 export 'src/model/events/error_event.dart';
 export 'src/model/severity.dart';
 export 'src/model/handler_options.dart';

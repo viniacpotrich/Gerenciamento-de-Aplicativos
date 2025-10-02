@@ -12,8 +12,6 @@ void main() async {
     reporters: [
       ConsoleReporter(),
       LocalDbReporter(logBox),
-      // FirebaseReporter(),
-      // SentryCrashReporter(),
     ],
     options: const HandlerOptions(
       catchAsyncErrors: true,
@@ -48,7 +46,7 @@ class MyApp extends StatelessWidget {
                 onPressed: () {
                   ActaJournal.addBreadcrumb('Pressed INFO');
                   ActaJournal.report(
-                    event: Event(
+                    event: BaseEvent(
                       message: 'User pressed info',
                       severity: Severity.info,
                       metadata: {'screen': 'home'},

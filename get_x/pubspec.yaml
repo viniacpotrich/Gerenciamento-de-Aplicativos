@@ -14,6 +14,8 @@ dependencies:
     path: ../acta
   cupertino_icons: ^1.0.8
   get: ^4.7.2
+  package_info_plus: 9.0.0 
+  device_info_plus: 12.1.0
 
 dev_dependencies:
   flutter_test:

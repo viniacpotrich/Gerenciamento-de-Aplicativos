@@ -5,6 +5,7 @@ import 'dart:developer' as developer;
 import 'package:acta/acta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:very_good/data/services/info_service.dart';
 import 'package:very_good/utils/error_dialog.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -54,7 +55,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       minSeverity: Severity.info,
       maxBreadcrumbs: 50,
     ),
-    initialContext: {'appVersion': '1.0.0', 'build': 1, 'env': 'dev'},
+    initialContext: await InfoService.collectAsJson(),
     beforeSend: (Event event) {
       // Example: drop noisy debug logs in release
       // if (kReleaseMode && report.level == BugLevel.debug) return null;

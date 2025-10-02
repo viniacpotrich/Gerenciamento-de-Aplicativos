@@ -3,12 +3,13 @@ import 'dart:developer' as developer;
 
 import 'package:acta/acta.dart';
 import 'package:clean_arch/app.dart';
+import 'package:clean_arch/data/services/info_service.dart';
 import 'package:clean_arch/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-void main() {
+void main() async {
   ActaJournal.initialize(
     reporters: [
       ConsoleReporter(),
@@ -32,7 +33,7 @@ void main() {
       minSeverity: Severity.info,
       maxBreadcrumbs: 50,
     ),
-    initialContext: {'appVersion': '1.0.0', 'build': 1, 'env': 'dev'},
+    initialContext: await InfoService.collectAsJson(),
     beforeSend: (Event event) {
       // Example: drop noisy debug logs in release
       // if (kReleaseMode && report.level == BugLevel.debug) return null;

@@ -1,8 +1,8 @@
-import 'package:acta/src/model/events/event.dart';
+import 'package:acta/src/model/events/base_event.dart';
 import 'package:acta/src/model/severity.dart';
 import 'package:acta/src/utils/utils.dart';
 
-class ErrorEvent extends Event {
+class ErrorEvent extends BaseEvent {
   final Object? exception;
   final StackTrace? stackTrace;
 
@@ -59,4 +59,12 @@ class ErrorEvent extends Event {
   @override
   String toString() =>
       'ErrorEvent(${super.getContentToString()} exception: $exception, stackTrace: $stackTrace)';
+
+  @override
+  String prettyPrinter() {
+    final buffer = StringBuffer();
+    if (exception != null) buffer.writeln('Exception: $exception');
+    if (stackTrace != null) buffer.writeln('StackTrace: $stackTrace');
+    return "${super.prettyPrinter()}${buffer.toString()}";
+  }
 }

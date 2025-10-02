@@ -78,7 +78,7 @@ class MongoReporter implements Reporter {
       await coll.insertOne(event.toMap());
 
       await db.close();
-      debugPrint('Evento salvo no MongoDB: ${event.message}');
+      // debugPrint('Evento salvo no MongoDB: ${event.toString()}');
       // return result;
     } catch (e, s) {
       debugPrint('Erro ao salvar no MongoDB: $e\n$s');

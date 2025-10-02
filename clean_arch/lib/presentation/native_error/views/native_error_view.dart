@@ -15,7 +15,12 @@ class NativeErrorView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => viewModel.callNative(),
+              onPressed:
+                  () => viewModel.callNativeToast("Esse é um Toast Nativo."),
+              child: Text('Chamar Toast Nativo'),
+            ),
+            ElevatedButton(
+              onPressed: () => viewModel.callNativeError(),
               child: Text('Chamar erro de channel'),
             ),
           ],

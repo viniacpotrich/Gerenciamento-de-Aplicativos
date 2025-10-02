@@ -3,12 +3,13 @@ package com.example.clean_arch
 import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity : FlutterActivity() {
-    private val CHANNEL = "error_channel"
+    private val ERRORCHANNEL = "error_channel"
+    private val TOASTCHANNEL = "toast_channel"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        MethodChannel(flutterEngine?.dartExecutor?.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+        MethodChannel(flutterEngine?.dartExecutor?.binaryMessenger, ERRORCHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {
                 "throwError" -> {
                     try {
@@ -17,6 +18,17 @@ class MainActivity : FlutterActivity() {
                         result.error("KOTLIN_ERROR", e.message, null)
                     }
                 }
+                else -> result.notImplemented()
+            }
+        }
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, TOASTCHANNEL).setMethodCallHandler { call, result ->
+            when (call.method) { 
+                "showToast" -> {
+                    val message = call.argument<String>("message")
+                    Toast.makeText(this, message ?: "Mensagem vazia", Toast.LENGTH_SHORT).show()
+                    result.success(null)
+                } 
                 else -> result.notImplemented()
             }
         }
