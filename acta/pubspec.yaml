@@ -1,5 +1,5 @@
 name: acta
-description: "A new Flutter package project."
+description: "Uma ferramenta para gerenciamento de aplicativos, que captura eventos e erros de forma estruturada e extensível, permitindo monitoramento eficiente e relatórios confiáveis em qualquer projeto Dart/Flutter."
 version: 0.0.1
 
 environment:
