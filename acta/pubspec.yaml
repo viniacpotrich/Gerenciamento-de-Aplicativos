@@ -27,7 +27,5 @@ dev_dependencies:
 
 flutter:
 
-publish_to: "https://pub.dev" 
-
 repository:  https://github.com/viniacpotrich/Gerenciamento-de-Aplicativos/acta
 homepage: https://github.com/viniacpotrich
