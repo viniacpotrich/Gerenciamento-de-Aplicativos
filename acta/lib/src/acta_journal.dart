@@ -145,6 +145,7 @@ class ActaJournal {
     try {
       await r.report(event);
     } catch (e, s) {
+      //TODO Safe Fallback reporter
       debugPrint('[ACTA] reporter ${r.runtimeType} failed: $e\n$s');
     }
   }
