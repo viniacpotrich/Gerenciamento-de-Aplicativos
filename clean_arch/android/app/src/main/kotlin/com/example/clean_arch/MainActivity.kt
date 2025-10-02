@@ -6,8 +6,8 @@ class MainActivity : FlutterActivity() {
     private val ERRORCHANNEL = "error_channel"
     private val TOASTCHANNEL = "toast_channel"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
 
         MethodChannel(flutterEngine?.dartExecutor?.binaryMessenger, ERRORCHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {

@@ -141,8 +141,13 @@ class ActaJournal {
     _onCaptured?.call(maybe);
   }
 
-  static _reportEventMethod(Reporter r, Event event) async =>
+  static _reportEventMethod(Reporter r, Event event) async {
+    try {
       await r.report(event);
+    } catch (e, s) {
+      debugPrint('[ACTA] reporter ${r.runtimeType} failed: $e\n$s');
+    }
+  }
 
   //TODO colocar como pontos futuros
   // // isolate function (must be top-level or static)
@@ -185,8 +190,6 @@ class ActaJournal {
 // ElasticSearch levantar docker 
 // Ferramentas existentes
 // Id de app
-
-
 
 
 

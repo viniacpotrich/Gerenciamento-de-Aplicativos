@@ -31,6 +31,10 @@ class NativeErrorView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
+              onPressed: () => cubit.callNativeToast('Esse é um Toast Nativo.'),
+              child: const Text('Chamar Toast Nativo'),
+            ),
+            ElevatedButton(
               onPressed: cubit.callNative,
               child: const Text('Chamar erro de channel'),
             ),
