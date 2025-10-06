@@ -1,3 +1,6 @@
-## 0.0.1
+## 0.0.2
 
-* TODO: Describe initial release.
+### Changes
+- Added documentation to primary functions and methods
+- Cleaned up code and improved readability
+- Minor refactor for consistency
