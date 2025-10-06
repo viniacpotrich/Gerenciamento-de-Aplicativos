@@ -2,8 +2,19 @@ import 'package:acta/src/model/events/base_event.dart';
 import 'package:acta/src/model/severity.dart';
 import 'package:acta/src/utils/utils.dart';
 
+///Implementation of ErrorEvent extends [BaseEvent]
+///
+/// Represents an error event with additional details:
+///
+/// - [exception]: The error or exception object that was thrown or caught.
+///   Can be any type (e.g., Exception, Error, String) and provides context about what went wrong.
+/// - [stackTrace]: The stack trace at the moment the exception occurred.
+///   Useful for debugging, as it shows the sequence of function calls leading to the error.
 class ErrorEvent extends BaseEvent {
+  /// The error or exception object associated with this event.
   final Object? exception;
+
+  /// The stack trace captured when the exception occurred.
   final StackTrace? stackTrace;
 
   ErrorEvent({

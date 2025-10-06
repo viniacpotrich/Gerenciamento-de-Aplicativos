@@ -2,8 +2,15 @@ import 'package:acta/acta.dart';
 
 import 'package:http/http.dart' as http;
 
+/// Reporter that sends events to an Elasticsearch backend.
+///
+/// Useful for centralized logging, search, and analytics.
+/// Configure with your Elasticsearch endpoint and credentials as needed.
 class ElasticsearchReporter implements Reporter {
+  /// [connectionString] represent the connection URL to the Elasticsearch instance.
   final String connectionString;
+
+  /// [idnexPattern] represent the index in Elasticsearch where events will be stored.
   final String indexPattern;
 
   ElasticsearchReporter({
@@ -11,6 +18,9 @@ class ElasticsearchReporter implements Reporter {
     required this.indexPattern,
   });
 
+  /// Reports the [Event] to Elasticsearch.
+  ///
+  /// Converts the event to JSON and sends it to the configured Elasticsearch index.
   @override
   Future<void> report(Event event) async {
     final url = Uri.parse(

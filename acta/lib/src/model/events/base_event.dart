@@ -2,6 +2,17 @@ import 'dart:convert';
 import 'package:acta/src/model/events/event.dart';
 import 'package:acta/src/model/severity.dart';
 
+/// Base implementation of [Event].
+///
+/// Represents a generic event in the system, with core attributes:
+///
+/// - [message]: Description or details about the event.
+/// - [severity]: Importance or level of the event (e.g., info, warning, error).
+/// - [tag]: Optional label to categorize the event.
+/// - [metadata]: Optional map with extra data related to the event.
+/// - [breadcrumbs]: Optional list of contextual actions or states leading up to the event.
+/// - [timestamp]: When the event occurred.
+/// - [fingerPrint]: Unique identifier for the event, useful for grouping or deduplication.
 class BaseEvent implements Event {
   late String fingerPrint;
   final String message;

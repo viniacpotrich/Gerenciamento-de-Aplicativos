@@ -2,10 +2,20 @@ import 'package:acta/acta.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
+/// Reporter that sends events to a MongoDB database.
+///
+/// Useful for centralized storage, querying, and analytics.
+/// Configure with your MongoDB connection details as needed.
 class MongoReporter implements Reporter {
+  /// [connectionString] represent the connection URL to the MongoDB instance.
   final String connectionString;
+
+  /// [dbName] represent the database name in MongoDB where events will be stored.
   final String dbName;
+
+  /// [collection] represent the collection in MongoDB where events will be stored.
   final String collection;
+
   // final bool compactMode;
 
   MongoReporter({
@@ -70,6 +80,9 @@ class MongoReporter implements Reporter {
   //   }
   // }
 
+  /// Reports the [Event] to MongoDB.
+  ///
+  /// Converts the event to JSON and inserts it into the configured collection.
   @override
   Future<void> report(Event event) async {
     try {

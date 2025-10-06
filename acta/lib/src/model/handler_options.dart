@@ -1,5 +1,14 @@
 import 'package:acta/acta.dart';
 
+/// Configuration options for the event handler.
+///
+/// Controls how errors and events are captured and processed:
+///
+/// - [catchAsyncErrors]: Whether to catch uncaught asynchronous errors (e.g., in zones).
+/// - [logFlutterErrors]: Whether to capture and log Flutter framework errors.
+/// - [logPlatformErrors]: Whether to capture platform-level errors.
+/// - [minSeverity]: Minimum severity required for an event to be processed.
+/// - [maxBreadcrumbs]: Maximum number of breadcrumbs to keep in memory.
 class HandlerOptions {
   final bool catchAsyncErrors;
   final bool logFlutterErrors;
