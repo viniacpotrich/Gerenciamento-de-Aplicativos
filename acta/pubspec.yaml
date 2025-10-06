@@ -1,6 +1,6 @@
 name: acta
-description: "Uma ferramenta para gerenciamento de aplicativos, que captura eventos e erros de forma estruturada e extensível, permitindo monitoramento eficiente e relatórios confiáveis em qualquer projeto Dart/Flutter."
-version: 0.0.1
+description: "A tool for application management that captures events and errors in a structured and extensible way."
+version: 0.0.2
 
 environment:
   sdk: ^3.7.2

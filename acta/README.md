@@ -12,7 +12,7 @@ and the Flutter guide for
 -->
 
 # Acta
-A tool for application management that captures events and errors in a structured and extensible way, enabling efficient monitoring and reliable reporting in any Dart/Flutter project.
+A tool for application management that captures events and errors in a structured and extensible way.
 
 ## Features
 
