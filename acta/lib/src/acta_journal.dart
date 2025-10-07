@@ -180,7 +180,7 @@ class ActaJournal {
   }
 
   /// Internal helper to report an event to a single reporter.
-  static _reportEventMethod(Reporter r, Event event) async {
+  static void _reportEventMethod(Reporter r, Event event) async {
     try {
       await r.report(event);
     } catch (e, s) {
