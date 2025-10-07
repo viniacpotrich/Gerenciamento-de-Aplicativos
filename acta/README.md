@@ -51,7 +51,8 @@ Planned improvements and upcoming features for future releases:
 - [  ] Local cache and sync
 
 ### 🧪 Tooling & Developer Experience
-- [✅] Provide built-in adapters for Flutter’s error handling system
+- [✅] Provide built-in adapters for Flutter’s error handling system for Android
+- [  ] Provide built-in adapters for Flutter’s error handling system for IOS
 - [🚧] Add examples and samples
 - [  ] Improve test coverage and provide example-driven docs
 - [  ] Add command-line utilities for debugging and inspection
