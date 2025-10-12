@@ -10,8 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  acta:
-    path: ../acta
+  # acta:
+  #   path: ../acta
+  acta: ^0.0.3
   cupertino_icons: ^1.0.8
   get: ^4.7.2
   package_info_plus: 9.0.0 

@@ -8,6 +8,7 @@ void main() {
     print(schema);
   });
 }
+
 // {
 //     "message": "message",
 //     "fingerPrint": "message|info|",

@@ -16,12 +16,7 @@ https://ngrok.com/
 // TODO 
 // metodo channel kotlin
 // Documentar o TCC
-//    BPM => pesquisar notações (LOOP) na vdd sao assim, só que seria o modo tradicional (não achei o loopzinho novo no drawio)
-            //Capturou rever => ajustado
-//    Fluxograma
-//      Cada diagrama um exemplo
-//    Criar um expecifico para user
-
+//    BPM => pesquisar notações (LOOP) na vdd sao assim, só que seria o modo tradicional (não achei o loopzinho novo no drawio) => Ver se ta deprecated, outro software
 //    Exemplos de json, repostas, FERRAMENTAS 
 //    Pacote
 //    Apps exemplos para uso do pacote
@@ -30,13 +25,12 @@ https://ngrok.com/
 // cojitar colocar no pub dev //https://dart.dev/tools/dart-doc
 // Sentry Firebase
 // Melhorar erros de network (nas camadas)
-// ElasticSearch levantar docker 
+// ElasticSearch https levantar docker 
 // Ferramentas existentes
-// Id de app
+    Logger
+    Talker
+    ...
+    Reporter Logger => Console
 
-
-
-// METADATA AINDA TA IGUAL
-// Talvez por tudo em pt-BR?
-// Passar para .env antes de pensar em publicar
-// lifecycle
+// Files
+// error lifecycle

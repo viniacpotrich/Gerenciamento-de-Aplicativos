@@ -8,8 +8,9 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
-  acta:
-    path: ../acta
+  # acta:
+  #   path: ../acta
+  acta: ^0.0.3
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8

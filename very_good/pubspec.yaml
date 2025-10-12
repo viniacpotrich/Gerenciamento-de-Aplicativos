@@ -7,8 +7,9 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  acta:
-    path: ../acta
+  # acta:
+  #   path: ../acta
+  acta: ^0.0.3
   bloc: ^8.1.4
   flutter:
     sdk: flutter
