@@ -17,10 +17,10 @@ class _DbErrorScreenState extends State<DbErrorScreen> {
     ),
     _ErrorAction(
       title: "Just warning",
-      description: "Nem erro e",
+      description: "Apenas um alerta",
       tag: "Just warning",
     ),
-    _ErrorAction(title: "Virus", description: "HELP", tag: "Virus"),
+    _ErrorAction(title: "Error", description: "HELP", tag: "Error"),
   ];
 
   @override

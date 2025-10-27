@@ -49,13 +49,18 @@ void main() async {
                 title: 'Oops Algum erro ocorreu!',
                 message: '${event?.toString()}',
               ),
-        );
+        ).then((_) {
+          Get.offNamedUntil(
+            Routes.HOME,
+            (route) => route.settings.name == Routes.HOME,
+          );
+        });
       }
     },
     appRunner: () {
       runApp(
         GetMaterialApp(
-          title: "Application",
+          title: "Test Get X",
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           navigatorObservers: [CustomNavigatorObserver()],

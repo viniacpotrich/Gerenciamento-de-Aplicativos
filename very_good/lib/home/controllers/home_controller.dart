@@ -42,5 +42,11 @@ class HomeCubit extends Cubit<List<ItemMenu>> {
             route: Routes.nativeError,
             color: Colors.green,
           ),
+          ItemMenu(
+            title: 'Screen Error',
+            icon: Icons.screenshot_outlined,
+            route: Routes.screenError,
+            color: Colors.blueGrey,
+          ),
         ]);
 }

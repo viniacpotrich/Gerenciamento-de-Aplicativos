@@ -41,5 +41,11 @@ class HomeController extends GetxController {
       route: Routes.NATIVE_ERROR_SCREEN,
       color: Colors.green,
     ),
+    ItemMenu(
+      title: 'Screen Error',
+      icon: Icons.screenshot_outlined,
+      route: Routes.SCREEN_ERROR_SCREEN,
+      color: Colors.blueGrey,
+    ),
   ];
 }

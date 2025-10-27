@@ -13,6 +13,7 @@ import 'package:clean_arch/presentation/memory_leak/view_models/memory_leak_view
 import 'package:clean_arch/presentation/memory_leak/views/memory_leak_view.dart';
 import 'package:clean_arch/presentation/native_error/view_models/native_error_view_model.dart';
 import 'package:clean_arch/presentation/native_error/views/native_error_view.dart';
+import 'package:clean_arch/presentation/screen_error/views/screen_error_view.dart';
 import 'package:clean_arch/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Test Clean Arch',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
           Routes.dbErrors: (context) => DbErrorView(viewModel: context.watch()),
           Routes.nativeError:
               (context) => NativeErrorView(viewModel: context.watch()),
+          Routes.screenError: (context) => ScreenErrorView(),
         },
         navigatorKey: navigatorKey,
       ),

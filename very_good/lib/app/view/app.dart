@@ -18,7 +18,6 @@ class App extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
-      key: navigatorKey,
     );
   }
 }

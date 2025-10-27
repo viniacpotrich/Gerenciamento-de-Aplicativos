@@ -90,6 +90,13 @@ class HomeScreen extends StatelessWidget {
             route: Routes.nativeError,
             color: Colors.green,
           ),
+          _buildMenuButton(
+            context: context,
+            title: 'Screen Error',
+            icon: Icons.screenshot_outlined,
+            route: Routes.screenError,
+            color: Colors.blueGrey,
+          ),
         ],
       ),
     );

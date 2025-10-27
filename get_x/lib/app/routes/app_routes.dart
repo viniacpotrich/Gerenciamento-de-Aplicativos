@@ -10,6 +10,7 @@ abstract class Routes {
   static const DB_ERRORS_SCREEN = _Paths.DB_ERRORS_SCREEN;
   static const CONNECTION_ERROR_SCREEN = _Paths.CONNECTION_ERROR_SCREEN;
   static const NATIVE_ERROR_SCREEN = _Paths.NATIVE_ERROR_SCREEN;
+  static const SCREEN_ERROR_SCREEN = _Paths.SCREEN_ERROR_SCREEN;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const DB_ERRORS_SCREEN = '/db_errors';
   static const CONNECTION_ERROR_SCREEN = '/connection_error_screen';
   static const NATIVE_ERROR_SCREEN = '/native_error_screen';
+  static const SCREEN_ERROR_SCREEN = '/screen_error_screen';
 }

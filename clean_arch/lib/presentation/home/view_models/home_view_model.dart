@@ -40,5 +40,11 @@ class HomeViewModel extends ChangeNotifier {
       route: Routes.nativeError,
       color: Colors.green,
     ),
+    ItemMenu(
+      title: 'Screen Error',
+      icon: Icons.screenshot_outlined,
+      route: Routes.screenError,
+      color: Colors.blueGrey,
+    ),
   ];
 }

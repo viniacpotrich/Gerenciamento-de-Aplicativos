@@ -9,8 +9,11 @@ import 'package:very_good/memory_leak/views/memory_leak_view.dart';
 import 'package:very_good/native_error/views/native_error_view.dart';
 import 'package:very_good/routes/custom_navigator_observer.dart';
 import 'package:very_good/routes/routes.dart';
+import 'package:very_good/screen_error/views/screen_error_view.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
+  navigatorKey: navigatorKey,
   debugLogDiagnostics: true,
   observers: [
     CustomNavigatorObserver(),
@@ -55,6 +58,12 @@ final GoRouter router = GoRouter(
           path: Routes.nativeError,
           builder: (BuildContext context, GoRouterState state) {
             return const NativeErrorPage();
+          },
+        ),
+        GoRoute(
+          path: Routes.screenError,
+          builder: (BuildContext context, GoRouterState state) {
+            return const ScreenErrorPage();
           },
         ),
       ],

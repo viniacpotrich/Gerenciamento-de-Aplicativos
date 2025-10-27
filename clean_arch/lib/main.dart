@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'package:acta/acta.dart';
 import 'package:clean_arch/app.dart';
 import 'package:clean_arch/data/services/info_service.dart';
+import 'package:clean_arch/routes/routes.dart';
 import 'package:clean_arch/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,14 @@ void main() async {
                 title: 'Oops Algum erro ocorreu!',
                 message: '${event?.toString()}',
               ),
-        );
+        ).then((_) {
+          if (context2.mounted) {
+            Navigator.popUntil(
+              context2,
+              (route) => route.settings.name == Routes.home,
+            );
+          }
+        });
       }
     },
     appRunner: () {

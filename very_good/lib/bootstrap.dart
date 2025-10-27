@@ -5,10 +5,11 @@ import 'dart:developer' as developer;
 import 'package:acta/acta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:very_good/data/services/info_service.dart';
+import 'package:very_good/routes/go_router.dart';
+import 'package:very_good/routes/routes.dart';
 import 'package:very_good/utils/error_dialog.dart';
-
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -64,13 +65,17 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     onCaptured: (Event? event) {
       final context2 = navigatorKey.currentState?.context;
       if (context2 != null) {
-        showDialog(
+        showDialog<void>(
           context: context2,
           builder: (_) => ErrorDialog(
             title: 'Oops Algum erro ocorreu!',
             message: '$event',
           ),
-        );
+        ).then((_) {
+          if (context2.mounted) {
+            context2.go(Routes.home);
+          }
+        });
       }
     },
     appRunner: () async {

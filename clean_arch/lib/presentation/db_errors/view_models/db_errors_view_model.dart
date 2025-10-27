@@ -10,9 +10,9 @@ class DbErrorsViewModel extends ChangeNotifier {
     ),
     ErrorAction(
       title: "Just warning",
-      description: "Nem erro e",
+      description: "Apenas um alerta",
       tag: "Just warning",
     ),
-    ErrorAction(title: "Virus", description: "HELP", tag: "Virus"),
+    ErrorAction(title: "Error", description: "HELP", tag: "Error"),
   ];
 }

@@ -9,6 +9,7 @@ import 'package:flutter_base/navigation/custom_navigator_observer.dart';
 import 'package:flutter_base/screens/connection_errors/connection_error_screen.dart';
 import 'package:flutter_base/screens/db_errors/db_errors_screen.dart';
 import 'package:flutter_base/screens/native_error/native_error.dart';
+import 'package:flutter_base/screens/screen_error/views/screen_error_view.dart';
 import 'package:flutter_base/utils/error_dialog.dart';
 import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
@@ -61,7 +62,14 @@ void main() async {
                 title: 'Oops Algum erro ocorreu!',
                 message: '${event?.toString()}',
               ),
-        );
+        ).then((_) {
+          if (context2.mounted) {
+            Navigator.popUntil(
+              context2,
+              (route) => route.settings.name == Routes.home,
+            );
+          }
+        });
       }
     },
     appRunner: () {
@@ -106,7 +114,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      title: 'Erro Test App',
+      title: 'Test Flutter Base',
       home: const HomeScreen(),
       routes: {
         Routes.codeErrorScreen: (_) => const CodeErrorsScreen(),
@@ -115,6 +123,7 @@ class MyApp extends StatelessWidget {
         Routes.dbErrors: (_) => const DbErrorScreen(),
         Routes.connectionErrorScreen: (_) => const ConnectionErrorScreen(),
         Routes.nativeError: (_) => const NativeErrorScreen(),
+        Routes.screenError: (_) => const ScreenErrorView(),
       },
       navigatorObservers: [CustomNavigatorObserver()],
     );
