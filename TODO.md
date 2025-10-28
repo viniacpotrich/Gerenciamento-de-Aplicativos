@@ -19,18 +19,25 @@ https://ngrok.com/
 //    BPM => pesquisar notações (LOOP) na vdd sao assim, só que seria o modo tradicional (não achei o loopzinho novo no drawio) => Ver se ta deprecated, outro software
 //    Exemplos de json, repostas, FERRAMENTAS 
 //    Pacote
-//    Apps exemplos para uso do pacote
-// Erro de tela
-// chamar toast Funcional
-// cojitar colocar no pub dev //https://dart.dev/tools/dart-doc
-// Sentry Firebase
-// Melhorar erros de network (nas camadas)
-// ElasticSearch https levantar docker 
-// Ferramentas existentes
-    Logger
-    Talker
-    ...
-    Reporter Logger => Console
 
-// Files
-// error lifecycle
+
+
+
+Dia 27 de outubro
+
+// Refazer as bases de dados e informações guardadas
+    Criar outro docker para manter informções guardadas
+// Files de servidor
+//    Apps exemplos para uso do pacote
+    // Erro de tela
+    // Sentry Firebase
+    // Melhorar erros de network (nas camadas)
+    // Ferramentas existentes
+        Logger
+        Talker
+        ...
+        Reporter Logger => Console
+        // error lifecycle
+// ElasticSearch https levantar docker
+
+//Revisar Banca 1
