@@ -1,3 +1,5 @@
+import 'package:clean_arch/domain/repositories/connection_repository_impl.dart';
+import 'package:clean_arch/domain/use_cases/connection_use_case.dart';
 import 'package:clean_arch/main.dart';
 import 'package:clean_arch/presentation/code_errors/view_models/code_errors_controller.dart';
 import 'package:clean_arch/presentation/code_errors/views/code_errors_view.dart';
@@ -35,7 +37,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<ConnectionErrorsViewModel>(
           lazy: false,
-          create: (_) => ConnectionErrorsViewModel(),
+          create:
+              (_) => ConnectionErrorsViewModel(
+                useCase: ConnectionUseCase(ConnectionRepositoryImpl()),
+              ),
         ),
         ChangeNotifierProvider<DbErrorsViewModel>(
           lazy: false,

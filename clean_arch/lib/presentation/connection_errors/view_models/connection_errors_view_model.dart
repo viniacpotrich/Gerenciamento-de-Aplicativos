@@ -1,14 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:acta/acta.dart';
+import 'package:clean_arch/domain/use_cases/connection_use_case.dart';
 import 'package:flutter/widgets.dart';
 
 class ConnectionErrorsViewModel extends ChangeNotifier {
+  final ConnectionUseCase useCase;
+
   String status = "Select an error to simulate";
+  ConnectionErrorsViewModel({required this.useCase});
 
   Future<void> simulateHttpError() async {
     status = '🌐 HTTP Request...';
     notifyListeners();
     await Future.delayed(const Duration(seconds: 2));
-    const msg = '❌ HTTP 500 Internal Server Error';
+    var msg = await useCase.simulateHttp();
     status = msg;
     notifyListeners();
     captureMethod(msg);
@@ -18,7 +23,7 @@ class ConnectionErrorsViewModel extends ChangeNotifier {
     status = '🔍 Scanning Bluetooth...';
     notifyListeners();
     await Future.delayed(const Duration(seconds: 3));
-    const msg = '❌ Bluetooth device not found';
+    var msg = await useCase.simulateBluetooth();
     status = msg;
     notifyListeners();
     captureMethod(msg);
@@ -28,7 +33,7 @@ class ConnectionErrorsViewModel extends ChangeNotifier {
     status = '🔌 Connecting to MQTT...';
     notifyListeners();
     await Future.delayed(const Duration(seconds: 2));
-    const msg = '❌ Failed to connect to MQTT broker';
+    var msg = await useCase.simulateMqtt();
     status = msg;
     notifyListeners();
     captureMethod(msg);

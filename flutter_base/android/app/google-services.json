@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "154822156701",
+    "project_id": "fir-actatest",
+    "storage_bucket": "fir-actatest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154822156701:android:e374de6f16604ad9b7cf74",
+        "android_client_info": {
+          "package_name": "com.example.flutter_base"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnQSW2r2-Mw_orVavhJiudMyZNpX0ZGqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

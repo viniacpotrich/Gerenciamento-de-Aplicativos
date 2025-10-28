@@ -25,19 +25,20 @@ https://ngrok.com/
 
 Dia 27 de outubro
 
-// Refazer as bases de dados e informações guardadas
-    Criar outro docker para manter informções guardadas
+// Refazer as bases de dados e informações guardadas +-
+    Criar outro docker para manter informções guardadas ?
 // Files de servidor
 //    Apps exemplos para uso do pacote
-    // Erro de tela
-    // Sentry Firebase
-    // Melhorar erros de network (nas camadas)
+    // Erro de tela V
+    // Firebase +-
+    // Sentry
+    // Melhorar erros de network (nas camadas) V
     // Ferramentas existentes
-        Logger
+        Logger V
         Talker
         ...
         Reporter Logger => Console
         // error lifecycle
 // ElasticSearch https levantar docker
 
-//Revisar Banca 1
+//Revisar Banca 1 

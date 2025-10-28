@@ -9,13 +9,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # acta:
-  #   path: ../acta
   acta: ^0.0.3
-  # firebase_core: ^4.0.0
   cupertino_icons: ^1.0.8
   package_info_plus: 9.0.0 
   device_info_plus: 12.1.0
+  logger: ^2.6.2
+  firebase_core: ^4.2.0
+  cloud_firestore: ^6.0.3
 
 dev_dependencies:
   flutter_test:

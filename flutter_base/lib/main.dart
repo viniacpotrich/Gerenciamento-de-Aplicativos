@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:acta/acta.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/firebase_options.dart';
 import 'package:flutter_base/screens/code_errors/code_errors_screen.dart';
 import 'package:flutter_base/navigation/custom_navigator_observer.dart';
 import 'package:flutter_base/screens/connection_errors/connection_error_screen.dart';
@@ -15,8 +15,10 @@ import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
 import 'package:flutter_base/screens/key_errors/key_error.dart';
 import 'package:flutter_base/screens/memory_leak/memory_leak.dart';
+import 'package:flutter_base/utils/firebase_custom.dart';
 import 'package:flutter_base/utils/info_service.dart';
-// import 'package:flutter_base/firebase_options.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -34,7 +36,7 @@ void main() async {
         connectionString: 'http://localhost:9200',
         indexPattern: 'logs',
       ),
-      // Fire
+      FirebaseCustomReporter(),
     ],
     options: const HandlerOptions(
       catchAsyncErrors: true,
@@ -72,7 +74,16 @@ void main() async {
         });
       }
     },
-    appRunner: () {
+    appRunner: () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      // // Setup Crashlytics
+      // FlutterError.onError =
+      //     FirebaseCrashlytics.instance.recordFlutterFatalError;
+
       runApp(const MyApp());
     },
     zoneSpecification: ZoneSpecification(
