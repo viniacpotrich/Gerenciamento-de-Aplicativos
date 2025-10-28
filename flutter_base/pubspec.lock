@@ -12,10 +12,9 @@ packages:
   acta:
     dependency: "direct main"
     description:
-      name: acta
-      sha256: "9001e7ed9e1381c46cb5b9270ca4fa2e119e5987d6bb07e8217f093365e409d1"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../acta"
+      relative: true
+    source: path
     version: "0.0.3"
   archive:
     dependency: transitive
