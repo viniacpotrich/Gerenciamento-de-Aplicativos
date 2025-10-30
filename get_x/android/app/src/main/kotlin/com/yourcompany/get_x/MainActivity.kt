@@ -1,6 +1,9 @@
 package com.yourcompany.get_x
 
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
+import android.widget.Toast
 
 class MainActivity : FlutterActivity() {
     private val ERRORCHANNEL = "error_channel"

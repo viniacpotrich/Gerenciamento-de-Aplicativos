@@ -1,6 +1,9 @@
 package com.example.verygoodcore.very_good
 
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
+import android.widget.Toast
 
 class MainActivity : FlutterActivity() {
     private val ERRORCHANNEL = "error_channel"
@@ -9,7 +12,7 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        MethodChannel(flutterEngine?.dartExecutor?.binaryMessenger, ERRORCHANNEL).setMethodCallHandler { call, result ->
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, ERRORCHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {
                 "throwError" -> {
                     try {
