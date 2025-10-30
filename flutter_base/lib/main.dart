@@ -24,19 +24,19 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   ActaJournal.initialize(
     reporters: [
-      ConsoleReporter(),
-      MongoReporter(
-        connectionString:
-            'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
-        dbName: 'error_logs',
-        collection: 'logs',
-        // compactMode: true,
-      ),
-      ElasticsearchReporter(
-        connectionString: 'http://localhost:9200',
-        indexPattern: 'logs',
-      ),
-      FirebaseCustomReporter(),
+      // ConsoleReporter(),
+      // MongoReporter(
+      //   connectionString:
+      //       'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
+      //   dbName: 'error_logs',
+      //   collection: 'logs',
+      //   // compactMode: true,
+      // ),
+      // ElasticsearchReporter(
+      //   connectionString: 'http://localhost:9200',
+      //   indexPattern: 'logs',
+      // ),
+      // FirebaseCustomReporter(),
     ],
     options: const HandlerOptions(
       catchAsyncErrors: true,
@@ -79,10 +79,6 @@ void main() async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-
-      // // Setup Crashlytics
-      // FlutterError.onError =
-      //     FirebaseCrashlytics.instance.recordFlutterFatalError;
 
       runApp(const MyApp());
     },
