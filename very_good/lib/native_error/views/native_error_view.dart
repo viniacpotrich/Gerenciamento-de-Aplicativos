@@ -26,20 +26,37 @@ class NativeErrorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Memory Leak Screen')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => cubit.callNativeToast('Esse é um Toast Nativo.'),
-              child: const Text('Chamar Toast Nativo'),
+      body: Column(
+        children: [
+          ListTile(
+            title: const Text(
+              'Chamar Toast Nativo',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            ElevatedButton(
-              onPressed: cubit.callNative,
-              child: const Text('Chamar erro de channel'),
+            subtitle: const Text('Mostra um Toast no Android/iOS'),
+            trailing: const Icon(Icons.check_circle_outline),
+            onTap: () => cubit.callNativeToast('Esse é um Toast Nativo.'),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
             ),
-          ],
-        ),
+          ),
+          ListTile(
+            title: const Text(
+              'Chamar erro de channel',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: const Text(
+              'Mostra um Erro ao chamar um channel que não existe',
+            ),
+            trailing: const Icon(Icons.error_outline),
+            onTap: cubit.callNative,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
+          ),
+        ],
       ),
     );
   }

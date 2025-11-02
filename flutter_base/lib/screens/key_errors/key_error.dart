@@ -24,7 +24,7 @@ class _KeyErrorScreenState extends State<KeyErrorScreen> {
     _itemsFixed = List.generate(
       _originalItems.length,
       (index) => ColorItem(
-        key: ValueKey('item1'),
+        key: ValueKey('item: $index'),
         initialColor: _originalItems[index].initialColor,
         title: _originalItems[index].title,
       ),

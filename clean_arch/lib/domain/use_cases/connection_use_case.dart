@@ -1,3 +1,4 @@
+import 'package:acta/acta.dart';
 import 'package:clean_arch/data/repositories/connection_repository.dart';
 
 class ConnectionUseCase {
@@ -5,7 +6,18 @@ class ConnectionUseCase {
 
   ConnectionUseCase(this.repository);
 
-  Future<String> simulateHttp() => repository.simulateHttpError();
-  Future<String> simulateBluetooth() => repository.simulateBluetoothError();
-  Future<String> simulateMqtt() => repository.simulateMqttError();
+  Future<String> simulateHttp() {
+    ActaJournal.addBreadcrumb('[$runtimeType.simulateHttp]');
+    return repository.simulateHttpError();
+  }
+
+  Future<String> simulateBluetooth() {
+    ActaJournal.addBreadcrumb('[$runtimeType.simulateBluetooth]');
+    return repository.simulateBluetoothError();
+  }
+
+  Future<String> simulateMqtt() {
+    ActaJournal.addBreadcrumb('[$runtimeType.simulateMqtt]');
+    return repository.simulateMqttError();
+  }
 }

@@ -36,7 +36,7 @@ void main() async {
       //   connectionString: 'http://localhost:9200',
       //   indexPattern: 'logs',
       // ),
-      // FirebaseCustomReporter(),
+      FirebaseCustomReporter(),
     ],
     options: const HandlerOptions(
       catchAsyncErrors: true,
@@ -54,6 +54,7 @@ void main() async {
     onCaptured: (Event? event) {
       var context2 = navigatorKey.currentState?.context;
       if (context2 != null) {
+        // Snack Bar
         // ScaffoldMessenger.of(
         //   context2,
         // ).showSnackBar(debugSnackBar(event, context2));
@@ -76,9 +77,9 @@ void main() async {
     },
     appRunner: () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
+      // await Firebase.initializeApp(
+      //   options: DefaultFirebaseOptions.currentPlatform,
+      // );
 
       runApp(const MyApp());
     },

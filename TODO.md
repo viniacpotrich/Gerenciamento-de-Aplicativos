@@ -37,8 +37,8 @@ Dia 27 de outubro
         Logger V
         Talker
         ...
-        Reporter Logger => Console
-        // error lifecycle
+        Reporter Logger => Console V
+        // error lifecycle 
 // ElasticSearch https levantar docker
 
 //Revisar Banca 1 

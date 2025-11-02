@@ -12,16 +12,35 @@ class NativeErrorView extends StatelessWidget {
       appBar: AppBar(title: const Text('Native Error Screen')),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ElevatedButton(
-              onPressed:
-                  () => viewModel.callNativeToast("Esse é um Toast Nativo."),
-              child: Text('Chamar Toast Nativo'),
+            ListTile(
+              title: const Text(
+                'Chamar Toast Nativo',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text('Mostra um Toast no Android/iOS'),
+              trailing: const Icon(Icons.check_circle_outline),
+              onTap: () => viewModel.callNativeToast('Esse é um Toast Nativo.'),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
             ),
-            ElevatedButton(
-              onPressed: () => viewModel.callNativeError(),
-              child: Text('Chamar erro de channel'),
+            ListTile(
+              title: const Text(
+                'Chamar erro de channel',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text(
+                'Mostra um Erro ao chamar um channel que não existe',
+              ),
+              trailing: const Icon(Icons.error_outline),
+              onTap: () => viewModel.callNativeError(),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
             ),
           ],
         ),

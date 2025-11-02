@@ -25,7 +25,7 @@ class KeyErrorsController extends GetxController {
         List.generate(
           originalItems.length,
           (index) => WidgetColorItem(
-            key: ValueKey('item1'),
+            key: ValueKey('item: $index'),
             initialColor: originalItems[index].initialColor,
             title: originalItems[index].title,
           ),

@@ -10,21 +10,38 @@ class NativeErrorView extends GetView<NativeErrorController> {
     final controller = Get.put(NativeErrorController());
     return Scaffold(
       appBar: AppBar(title: const Text('Native Error Screen')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed:
-                  () => controller.callNativeToast("Esse é um Toast Nativo."),
-              child: Text('Chamar Toast Nativo'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ListTile(
+            title: const Text(
+              'Chamar Toast Nativo',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            ElevatedButton(
-              onPressed: () => controller.callNative(),
-              child: Text('Chamar erro de channel'),
+            subtitle: const Text('Mostra um Toast no Android/iOS'),
+            trailing: const Icon(Icons.check_circle_outline),
+            onTap: () => controller.callNativeToast('Esse é um Toast Nativo.'),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
             ),
-          ],
-        ),
+          ),
+          ListTile(
+            title: const Text(
+              'Chamar erro de channel',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: const Text(
+              'Mostra um Erro ao chamar um channel que não existe',
+            ),
+            trailing: const Icon(Icons.error_outline),
+            onTap: () => controller.callNative(),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
+          ),
+        ],
       ),
     );
   }

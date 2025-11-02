@@ -10,6 +10,7 @@ class ConnectionErrorsViewModel extends ChangeNotifier {
   ConnectionErrorsViewModel({required this.useCase});
 
   Future<void> simulateHttpError() async {
+    ActaJournal.addBreadcrumb('[$runtimeType.simulateHttpError]');
     status = '🌐 HTTP Request...';
     notifyListeners();
     await Future.delayed(const Duration(seconds: 2));
@@ -20,6 +21,7 @@ class ConnectionErrorsViewModel extends ChangeNotifier {
   }
 
   Future<void> simulateBluetoothError() async {
+    ActaJournal.addBreadcrumb('[$runtimeType.simulateBluetoothError]');
     status = '🔍 Scanning Bluetooth...';
     notifyListeners();
     await Future.delayed(const Duration(seconds: 3));
@@ -30,6 +32,7 @@ class ConnectionErrorsViewModel extends ChangeNotifier {
   }
 
   Future<void> simulateMqttError() async {
+    ActaJournal.addBreadcrumb('[$runtimeType.simulateMqttError]');
     status = '🔌 Connecting to MQTT...';
     notifyListeners();
     await Future.delayed(const Duration(seconds: 2));
