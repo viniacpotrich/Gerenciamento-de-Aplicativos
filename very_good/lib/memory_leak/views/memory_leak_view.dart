@@ -39,7 +39,7 @@ class MemoryLeakView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Text(
-              'Numero atual de escutas: ${cubit.numberListener}',
+              'Numero atual de escutas: $numberListener',
               style: const TextStyle(fontSize: 18, color: Colors.black87),
               textAlign: TextAlign.center,
             ),

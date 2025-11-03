@@ -26,12 +26,7 @@ class MemoryLeakViewModel extends ChangeNotifier {
   void onInitState() {
     // Each “leaked” listener updates sharedColor safely
     subscription = someService.stream.listen((_) {
-      sharedColor.value = Color.fromARGB(
-        255,
-        _random.nextInt(256),
-        _random.nextInt(256),
-        _random.nextInt(256),
-      );
+      generateNewColor();
     });
 
     // Fire every 3s

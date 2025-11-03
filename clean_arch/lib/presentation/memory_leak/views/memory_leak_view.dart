@@ -25,31 +25,35 @@ class _MemoryLeakViewState extends State<MemoryLeakView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: widget.viewModel.sharedColor.value,
-      appBar: AppBar(title: const Text('Memory Leak Screen')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Observe a cor mudar a cada 3 segundos',
-              style: TextStyle(fontSize: 18, color: Colors.black87),
-              textAlign: TextAlign.center,
+    return ValueListenableBuilder(
+      valueListenable: widget.viewModel.sharedColor,
+      builder:
+          (context, value, child) => Scaffold(
+            backgroundColor: value,
+            appBar: AppBar(title: const Text('Memory Leak Screen')),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Observe a cor mudar a cada 3 segundos',
+                    style: TextStyle(fontSize: 18, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Text(
+                    'Ou saia e entre denovo para vazar memoria',
+                    style: TextStyle(fontSize: 18, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'Numero atual de escutas: ${widget.viewModel.numberListener}',
+                    style: const TextStyle(fontSize: 18, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-            const Text(
-              'Ou saia e entre denovo para vazar memoria',
-              style: TextStyle(fontSize: 18, color: Colors.black87),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              'Numero atual de escutas: ${widget.viewModel.numberListener}',
-              style: const TextStyle(fontSize: 18, color: Colors.black87),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 }

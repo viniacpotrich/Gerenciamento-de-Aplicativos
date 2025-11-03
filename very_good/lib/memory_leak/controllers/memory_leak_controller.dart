@@ -5,23 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good/data/services/some_service.dart';
 
+int numberListener = 0;
+
 class MemoryLeakState {
-  MemoryLeakState({required this.sharedColor, required this.numberListener});
+  MemoryLeakState({required this.sharedColor});
   final Color sharedColor;
-  final int numberListener;
 
   MemoryLeakState copyWith({Color? sharedColor, int? numberListener}) {
     return MemoryLeakState(
       sharedColor: sharedColor ?? this.sharedColor,
-      numberListener: numberListener ?? this.numberListener,
     );
   }
 }
 
 class MemoryLeakCubit extends Cubit<MemoryLeakState> {
   MemoryLeakCubit(this.someService)
-      : super(MemoryLeakState(sharedColor: Colors.white, numberListener: 0)) {
-    emit(state.copyWith(numberListener: state.numberListener + 1));
+      : super(MemoryLeakState(sharedColor: Colors.white)) {
+    numberListener++;
     subscription = someService.stream.listen((_) {
       final newColor = Color.fromARGB(
         255,

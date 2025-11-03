@@ -5,6 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseCustomEvent extends Event {
   final String message;
+  @override
+  Map<String, dynamic> toMap() => {'message': message};
+
   FirebaseCustomEvent({required this.message});
 }
 
