@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   ActaJournal.initialize(
     reporters: [
       ConsoleReporter(),
@@ -25,10 +26,9 @@ void main() async {
         connectionString: 'http://localhost:9200',
         indexPattern: 'logs',
       ),
-      // Fire
     ],
     options: const HandlerOptions(
-      catchAsyncErrors: true,
+      catchAsyncErrors: false,
       logFlutterErrors: true,
       logPlatformErrors: true,
       minSeverity: Severity.info,
@@ -64,6 +64,7 @@ void main() async {
       }
     },
     appRunner: () {
+      // WidgetsFlutterBinding.ensureInitialized();
       runApp(const MyApp());
     },
     zoneSpecification: ZoneSpecification(

@@ -3,28 +3,26 @@ import 'dart:developer' as developer;
 
 import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/firebase_options.dart';
 import 'package:flutter_base/screens/code_errors/code_errors_screen.dart';
 import 'package:flutter_base/navigation/custom_navigator_observer.dart';
 import 'package:flutter_base/screens/connection_errors/connection_error_screen.dart';
 import 'package:flutter_base/screens/db_errors/db_errors_screen.dart';
 import 'package:flutter_base/screens/native_error/native_error.dart';
-import 'package:flutter_base/screens/screen_error/views/screen_error_view.dart';
+import 'package:flutter_base/screens/screen_error/screen_error_view.dart';
 import 'package:flutter_base/utils/error_dialog.dart';
 import 'package:flutter_base/screens/home/home_screen.dart';
 import 'package:flutter_base/navigation/routes.dart';
 import 'package:flutter_base/screens/key_errors/key_error.dart';
 import 'package:flutter_base/screens/memory_leak/memory_leak.dart';
-import 'package:flutter_base/utils/firebase_custom.dart';
+// import 'package:flutter_base/utils/firebase_custom.dart';
 import 'package:flutter_base/utils/info_service.dart';
-
-import 'package:firebase_core/firebase_core.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
+  // runnable();
   ActaJournal.initialize(
     reporters: [
-      // ConsoleReporter(),
+      ConsoleReporter(),
       // MongoReporter(
       //   connectionString:
       //       'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
@@ -36,10 +34,10 @@ void main() async {
       //   connectionString: 'http://localhost:9200',
       //   indexPattern: 'logs',
       // ),
-      FirebaseCustomReporter(),
+      // FirebaseCustomReporter(),
     ],
     options: const HandlerOptions(
-      catchAsyncErrors: true,
+      catchAsyncErrors: false,
       logFlutterErrors: true,
       logPlatformErrors: true,
       minSeverity: Severity.info,
@@ -63,7 +61,7 @@ void main() async {
           builder:
               (_) => ErrorDialog(
                 title: 'Oops Algum erro ocorreu!',
-                message: '${event?.toString()}',
+                message: '', //'${event?.toString()}',
               ),
         ).then((_) {
           if (context2.mounted) {
@@ -75,14 +73,7 @@ void main() async {
         });
       }
     },
-    appRunner: () async {
-      WidgetsFlutterBinding.ensureInitialized();
-      // await Firebase.initializeApp(
-      //   options: DefaultFirebaseOptions.currentPlatform,
-      // );
-
-      runApp(const MyApp());
-    },
+    appRunner: () async => runnable(),
     zoneSpecification: ZoneSpecification(
       print: (self, parent, zone, line) {
         developer.log("[PRINT] $line");
@@ -98,6 +89,29 @@ void main() async {
       },
     ),
   );
+}
+
+void runnable() {
+  // final prev = FlutterError.onError;
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   prev?.call(details);
+  //   goHome();
+  // };
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
+}
+
+void goHome() {
+  var context2 = navigatorKey.currentState?.context;
+  if (context2 != null && context2.mounted) {
+    Future.delayed(
+      Duration(seconds: 1),
+      () => Navigator.popUntil(
+        context2,
+        (route) => route.settings.name == Routes.home,
+      ),
+    );
+  }
 }
 
 SnackBar debugSnackBar(Event? event, BuildContext context2) {

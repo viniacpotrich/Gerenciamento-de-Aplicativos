@@ -9,14 +9,14 @@ environment:
 
 dependencies:
   # acta:
-  #   path: ../acta
+  #   path: ../../acta
   acta: ^0.0.4
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
   provider: ^6.1.5+1
   package_info_plus: 9.0.0 
-  device_info_plus: 12.1.0
+  device_info_plus: 12.2.0
   
 dev_dependencies:
   flutter_test:

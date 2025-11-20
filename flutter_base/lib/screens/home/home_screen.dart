@@ -1,5 +1,7 @@
+import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/navigation/routes.dart';
+import 'package:flutter_base/utils/firebase_custom.dart';
 import 'package:flutter_base/utils/logger.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -48,6 +50,18 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
+          ElevatedButton(
+            onPressed: () {
+              throw (Exception);
+              // ActaJournal.report(
+              //   event: FirebaseCustomEvent(message: 'message'),
+              // );
+
+              // bool? boolleano;
+              // print(boolleano!);
+            },
+            child: Text("Throw"),
+          ),
           ElevatedButton(
             onPressed: () {
               var date = DateTime.now();

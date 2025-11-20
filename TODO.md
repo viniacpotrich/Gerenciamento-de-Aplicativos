@@ -42,3 +42,27 @@ Dia 27 de outubro
 // ElasticSearch https levantar docker
 
 //Revisar Banca 1 
+//imagens do fluxograma
+
+
+
+
+
+
+
+//REVISAO
+Fundamentos antes de Referencial
+Explicação de código de exemplos
+    Geral
+    Especifico
+BMPS
+    Processo com nome
+    Pool com nome
+
+Uma coisa que tu precisa rever no texto inteiro: Tu deveria começar com: A busca de bugs e indetificacao de problemas…..???
+
+RESUMO
+ANTES Do 2
+
+
+ https://youtu.be/nAQ8UHMOeKk 

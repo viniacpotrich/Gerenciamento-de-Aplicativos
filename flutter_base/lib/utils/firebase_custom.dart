@@ -14,7 +14,6 @@ class FirebaseCustomEvent extends Event {
 class FirebaseCustomReporter extends Reporter {
   @override
   Future<void> report(Event report) async {
-    // Check that Firebase is initialized but don’t re-init it
     if (Firebase.apps.isEmpty) {
       print('Firebase not initialized. Call Firebase.initializeApp() first.');
     }
