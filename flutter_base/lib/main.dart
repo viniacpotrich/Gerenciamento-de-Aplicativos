@@ -19,10 +19,11 @@ import 'package:flutter_base/utils/info_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // runnable();
   ActaJournal.initialize(
     reporters: [
-      ConsoleReporter(),
+      // ConsoleReporter(),
       // MongoReporter(
       //   connectionString:
       //       'mongodb://root:example@127.0.0.1:27017/error_logs?authSource=admin',
@@ -30,10 +31,12 @@ void main() async {
       //   collection: 'logs',
       //   // compactMode: true,
       // ),
-      // ElasticsearchReporter(
-      //   connectionString: 'http://localhost:9200',
-      //   indexPattern: 'logs',
-      // ),
+      ElasticsearchReporter(
+        connectionString:
+            //'http://localhost:9200',
+            'http://192.168.3.4:9200',
+        indexPattern: 'logs',
+      ),
       // FirebaseCustomReporter(),
     ],
     options: const HandlerOptions(
@@ -114,6 +117,7 @@ void goHome() {
   }
 }
 
+// https://www.youtube.com/watch?v=XmnX4vRpPvM
 SnackBar debugSnackBar(Event? event, BuildContext context2) {
   return SnackBar(
     content: ListTile(

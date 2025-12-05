@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ui';
+
 import 'package:acta/acta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/navigation/routes.dart';
@@ -68,6 +71,51 @@ class HomeScreen extends StatelessWidget {
               MyLoger().log('Log Criado $date');
             },
             child: Text("Criar Log"),
+          ),
+          PopupMenuButton<String>(
+            itemBuilder:
+                (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Throw Flutter Error',
+                    child: Text('Throw Flutter Error'),
+                    onTap: () {
+                      throw FlutterError(
+                        'Erro proposital no FlutterError.onError',
+                      );
+                    },
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'Throw PlatformDispacher ou runZonedGuarded',
+                    child: Text('Throw PlatformDispacher ou runZonedGuarded'),
+                    onTap: () {
+                      Future.delayed(Duration(milliseconds: 50), () {
+                        throw Exception('Erro exclusivo da zona');
+                      });
+                    },
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'Crash Error',
+                    child: Text('Crash Error'),
+                    onTap: () {
+                      Timer(Duration(milliseconds: 10), () {
+                        PlatformDispatcher.instance.onError?.call(
+                          Exception("Erro do Platform seguro!"),
+                          StackTrace.current,
+                        );
+                      });
+                      PlatformDispatcher.instance.onMetricsChanged = () {
+                        Future(() {
+                          throw Exception("Erro do Platform +- seguro!");
+                        });
+                      };
+                      PlatformDispatcher.instance.onBeginFrame = (_) {
+                        Future(() {
+                          throw Exception("BOOM");
+                        });
+                      };
+                    },
+                  ),
+                ],
           ),
         ],
       ),
